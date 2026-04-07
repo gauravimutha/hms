@@ -1,0 +1,23 @@
+# HMS - Week 1: Patient Registration & AI Stub
+
+- [/] Planning
+    - [x] Create project structure plan
+    - [x] Define implementation order
+    - [x] Document minimal file plan
+- [ ] Scaffold Projects
+    - [ ] Initialize Next.js frontend
+    - [ ] Initialize Node.js/Express backend
+    - [ ] Initialize FastAPI service
+- [ ] Database Setup
+    - [ ] Write `schema.sql` for Patient Registration
+- [ ] AI Service (FastAPI)
+    - [ ] Define AI contracts (Pydantic models)
+    - [ ] Create mock API endpoint
+- [ ] Backend Service (Node.js)
+    - [ ] Setup Express server
+    - [ ] Implement AI service caller
+    - [ ] Implement Patient registration endpoint
+- [ ] Frontend UI (Next.js)
+    - [ ] Build PatientForm component
+    - [ ] Create Registration page
+    - [ ] Connect frontend to Node.js backend
