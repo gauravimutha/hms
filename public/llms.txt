@@ -1,0 +1,20 @@
+# BizLume HMS (Hospital Management System)
+> An AI-assisted, clinician-first Hospital Management & Electronic Medical Records (EMR) platform developed by BizLume Technology & Solutions.
+
+## System Overview
+BizLume HMS is a modern healthcare operations operating system designed for hospitals, nursing homes, polyclinics, and diagnostic centers across India. Built on Next.js 16 (App Router), TypeScript, Tailwind CSS v4, and PostgreSQL via Prisma ORM.
+
+## Core Modules & Capabilities
+- **Clinical EMR (Electronic Medical Records)**: Single-page consultation workspace featuring ICD-10 disease classification, historical encounter timelines, and vitals trend monitoring.
+- **Smart Patient Queueing**: Dynamic mathematical priority scoring engine balancing acute emergencies, wait time decay, and scheduled appointment windows to eliminate waiting room congestion.
+- **Patient Intake & Registration**: Rapid 60-second digital onboarding with Aadhaar indexing, automated sequential patient IDs (HMS-xxxx), and printable registration cards via @react-pdf/renderer.
+- **Diagnostic Laboratory Integration**: Zero-paper order dispatch from doctor consultations, real-time visual abnormality highlighting, and reagent stock replenishment alerts.
+- **OP Billing & Financials**: Integrated OP fee collection with cash, card, and Razorpay digital payments (UPI, credit/debit cards).
+- **Assistive AI Documentation**: Contextual symptom summarization and clinical notes drafting to reduce physician documentation burden.
+- **Role-Based Access Control (RBAC)**: Strict cryptographic session security separating Administrator, Doctor, Nurse, Receptionist, and Lab Technician portals.
+
+## Technical Architecture
+- URL: https://bizlume.in
+- Stack: Next.js 16, React 19, TypeScript, PostgreSQL, Prisma ORM, Tailwind CSS v4
+- Inquiries & Support: contact@bizlume.in
+- Documentation & Public Hub: https://bizlume.in/faq

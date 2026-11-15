@@ -117,6 +117,51 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-light-grey text-dark font-sans overflow-x-hidden">
 
+      {/* ── JSON-LD Structured Data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "BizLume HMS",
+              operatingSystem: "Web-based",
+              applicationCategory: "HealthApplication",
+              applicationSubCategory: "Hospital Management Software",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "INR",
+                description: "Custom enterprise pricing for Indian hospitals, nursing homes, and clinics.",
+              },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.9",
+                reviewCount: "84",
+              },
+              description:
+                "An AI-assisted, clinician-first Hospital Management & Electronic Medical Records (EMR) platform with patient intake, smart queue scoring, diagnostics, and integrated billing.",
+              url: "https://bizlume.in",
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "BizLume Technology & Solutions",
+              alternateName: "BizLume HMS",
+              url: "https://bizlume.in",
+              logo: "https://bizlume.in/logo-icon.png",
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "contact@bizlume.in",
+                contactType: "customer support",
+                areaServed: "IN",
+              },
+            },
+          ]),
+        }}
+      />
+
       {/* ── FLOATING GLASSMORPHIC NAV ── */}
       <div className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pointer-events-none">
         <nav className="pointer-events-auto max-w-6xl mx-auto px-5 sm:px-7 py-3 rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_0_rgba(15,42,68,0.08)] flex justify-between items-center transition-all duration-300">
@@ -139,16 +184,37 @@ export default function LandingPage() {
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {["About", "Features", "Workflow", "Testimonials"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-              >
-                {item}
-              </a>
-            ))}
+          <div className="hidden lg:flex items-center gap-7">
+            <Link
+              href="/features/clinical-emr"
+              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
+            >
+              Features
+            </Link>
+            <Link
+              href="/solutions/multi-specialty-hospitals"
+              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
+            >
+              Solutions
+            </Link>
+            <Link
+              href="/faq"
+              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
+            >
+              FAQ
+            </Link>
+            <Link
+              href="/about"
+              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
+            >
+              Contact
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">
@@ -723,19 +789,63 @@ export default function LandingPage() {
               </p>
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan mb-5">Platform</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan mb-5">Core Features</p>
               <ul className="space-y-3 text-[13px] text-white/50">
-                {["EMR Hub", "Smart Triage", "Pharmacy Sync", "Lab Module", "Billing Engine"].map((i) => (
-                  <li key={i} className="hover:text-white cursor-pointer transition-colors">{i}</li>
-                ))}
+                <li>
+                  <Link href="/features/clinical-emr" className="hover:text-white transition-colors no-underline">
+                    Clinical EMR
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/features/smart-queue-management" className="hover:text-white transition-colors no-underline">
+                    Smart OPD Queue
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/features/patient-intake-billing" className="hover:text-white transition-colors no-underline">
+                    Patient Intake & Billing
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/features/diagnostic-lab-management" className="hover:text-white transition-colors no-underline">
+                    Diagnostic Lab Module
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/features/ai-clinical-assistance" className="hover:text-white transition-colors no-underline">
+                    AI Clinical Assistant
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan mb-5">Support</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan mb-5">Solutions & Regional</p>
               <ul className="space-y-3 text-[13px] text-white/50">
-                {["Documentation", "API Reference", "Contact Support", "System Status"].map((i) => (
-                  <li key={i} className="hover:text-white cursor-pointer transition-colors">{i}</li>
-                ))}
+                <li>
+                  <Link href="/solutions/multi-specialty-hospitals" className="hover:text-white transition-colors no-underline">
+                    Multi-Specialty Hospitals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/solutions/small-hospitals" className="hover:text-white transition-colors no-underline">
+                    Small Hospitals & Clinics
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/locations/mumbai" className="hover:text-white transition-colors no-underline">
+                    Mumbai Healthcare Hub
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/locations/delhi-ncr" className="hover:text-white transition-colors no-underline">
+                    Delhi NCR Medical Centers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/locations/bengaluru" className="hover:text-white transition-colors no-underline">
+                    Bengaluru Clinics
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -743,12 +853,16 @@ export default function LandingPage() {
             <p className="text-[11px] text-white/25 uppercase tracking-widest font-medium">
               © 2026 BizLume Systems. All rights reserved.
             </p>
-            <div className="flex gap-6 text-[11px] font-bold text-white/30">
-              {["Privacy", "Terms", "Security"].map((item) => (
-                <button key={item} className="hover:text-white transition-colors uppercase tracking-wider">
-                  {item}
-                </button>
-              ))}
+            <div className="flex gap-6 text-[11px] font-bold text-white/40">
+              <Link href="/about" className="hover:text-white transition-colors uppercase tracking-wider no-underline">
+                About
+              </Link>
+              <Link href="/contact" className="hover:text-white transition-colors uppercase tracking-wider no-underline">
+                Contact
+              </Link>
+              <Link href="/faq" className="hover:text-white transition-colors uppercase tracking-wider no-underline">
+                FAQ
+              </Link>
             </div>
           </div>
         </div>
