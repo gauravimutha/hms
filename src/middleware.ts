@@ -11,7 +11,12 @@ const protectedRoutes: Record<string, string[]> = {
     "/registeration": ["RECEPTIONIST"],
     "/appointments": ["RECEPTIONIST"],
     "/queue": ["RECEPTIONIST"],
-    "/inventory": ["PHARMACIST"],
+    // Pharmacy routes temporarily disabled
+    "/inventory": [],
+    "/pharmacy-dashboard": [],
+    "/prescriptions": [],
+    "/dispense": [],
+    "/prescriptionreports": [],
 };
 
 export async function middleware(request: NextRequest) {
@@ -65,5 +70,9 @@ export const config = {
         "/appointments/:path*",
         "/queue/:path*",
         "/inventory/:path*",
+        "/pharmacy-dashboard/:path*",
+        "/prescriptions/:path*",
+        "/dispense/:path*",
+        "/prescriptionreports/:path*",
     ],
 };

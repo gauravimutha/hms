@@ -54,7 +54,7 @@ export default function LoginPage() {
           router.push("/registeration");
           break;
         case "PHARMACIST":
-          router.push("/inventory");
+          setError("Pharmacist portal is temporarily unavailable.");
           break;
         case "LAB_TECHNICIAN":
           router.push("/lab-dashboard");

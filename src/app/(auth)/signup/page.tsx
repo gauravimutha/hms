@@ -122,7 +122,8 @@ export default function SignupPage() {
                 <option value="DOCTOR">Doctor</option>
                 <option value="NURSE">Nurse</option>
                 <option value="RECEPTIONIST">Receptionist</option>
-                <option value="PHARMACIST">Pharmacist</option>
+                {/* Pharmacist portal temporarily hidden */}
+                {/* <option value="PHARMACIST">Pharmacist</option> */}
                 <option value="LAB_TECHNICIAN">Lab Technician</option>
                 <option value="ADMIN">Admin</option>
               </select>
