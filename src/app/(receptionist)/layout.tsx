@@ -4,6 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { UserPlus, Calendar, ListOrdered, CreditCard } from "lucide-react";
 
 export default function ReceptionistLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -36,10 +37,10 @@ export default function ReceptionistLayout({ children }: { children: React.React
           </Link>
 
           <nav className="flex flex-col gap-2">
-            <NavLink href="/registeration" label="Patient Intake" icon="👤" active={pathname === "/registeration"} />
-            <NavLink href="/appointments" label="Appointments" icon="📅" active={pathname === "/appointments"} />
-            <NavLink href="/queue" label="Patient Queue" icon="🔢" active={pathname === "/queue"} />
-            <NavLink href="/billings" label="Billing Hub" icon="💳" active={pathname === "/billings"} />
+            <NavLink href="/registeration" label="Patient Intake" icon={<UserPlus className="w-4 h-4 shrink-0" />} active={pathname === "/registeration"} />
+            <NavLink href="/appointments" label="Appointments" icon={<Calendar className="w-4 h-4 shrink-0" />} active={pathname === "/appointments"} />
+            <NavLink href="/queue" label="Patient Queue" icon={<ListOrdered className="w-4 h-4 shrink-0" />} active={pathname === "/queue"} />
+            <NavLink href="/billings" label="Billing Hub" icon={<CreditCard className="w-4 h-4 shrink-0" />} active={pathname === "/billings"} />
           </nav>
         </div>
 
@@ -68,13 +69,13 @@ export default function ReceptionistLayout({ children }: { children: React.React
   );
 }
 
-function NavLink({ href, label, icon, active }: { href: string; label: string; icon: string; active: boolean }) {
+function NavLink({ href, label, icon, active }: { href: string; label: string; icon: React.ReactNode; active: boolean }) {
   return (
     <Link
       href={href}
       className={`flex items-center gap-3 p-3 rounded-xl transition-all font-bold text-sm no-underline ${active ? "bg-cyan text-navy" : "text-white/60 hover:bg-white/5 hover:text-white"}`}
     >
-      <span>{icon}</span> {label}
+      <span className="flex items-center justify-center">{icon}</span> {label}
     </Link>
   );
 }

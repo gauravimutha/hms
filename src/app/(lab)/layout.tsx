@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { FlaskConical, Boxes, LogOut } from "lucide-react";
 
 export default function LabLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -40,13 +41,13 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
                         <LabNavLink
                             href="/lab-dashboard"
                             label="Orders Dashboard"
-                            icon=""
+                            icon={<FlaskConical className="w-4 h-4 shrink-0" />}
                             active={pathname === "/lab-dashboard" || pathname.startsWith("/lab-test")}
                         />
                         <LabNavLink
                             href="/lab-inventory"
                             label="Reagents Inventory"
-                            icon=""
+                            icon={<Boxes className="w-4 h-4 shrink-0" />}
                             active={pathname === "/lab-inventory"}
                         />
                     </nav>
@@ -61,7 +62,7 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-status-red/20 text-status-red transition-all font-bold text-sm border border-status-red/10"
                     >
-                        <span>🚪</span> Sign Out
+                        <LogOut className="w-4 h-4 shrink-0" /> Sign Out
                     </button>
                 </div>
             </aside>
@@ -76,14 +77,14 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
     );
 }
 
-function LabNavLink({ href, label, icon, active }: { href: string; label: string; icon: string; active: boolean }) {
+function LabNavLink({ href, label, icon, active }: { href: string; label: string; icon: React.ReactNode; active: boolean }) {
     return (
         <Link
             href={href}
             className={`flex items-center gap-3 p-3 rounded-xl transition-all font-bold text-sm no-underline ${active ? "bg-cyan text-navy" : "text-white/60 hover:bg-white/5 hover:text-white"
                 }`}
         >
-            <span className="text-base">{icon}</span> {label}
+            <span className="flex items-center justify-center">{icon}</span> {label}
         </Link>
     );
 }

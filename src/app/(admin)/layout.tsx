@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Users, BarChart3, LogOut } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -41,11 +42,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <AdminNavLink
                             href="/admin-dashboard"
                             label="Staff Requests"
+                            icon={<Users className="w-4 h-4 shrink-0" />}
                             active={pathname === "/admin-dashboard"}
                         />
                         <AdminNavLink
                             href="/reports"
                             label="System Reports"
+                            icon={<BarChart3 className="w-4 h-4 shrink-0" />}
                             active={pathname === "/reports"}
                         />
                     </nav>
@@ -55,7 +58,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     onClick={handleLogout}
                     className="flex items-center gap-3 p-3 rounded-xl hover:bg-status-red/20 text-status-red transition-all font-bold text-sm border border-status-red/10"
                 >
-                    <span>🚪</span> Sign Out
+                    <LogOut className="w-4 h-4 shrink-0" /> Sign Out
                 </button>
             </aside>
 
@@ -69,13 +72,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
 }
 
-function AdminNavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+function AdminNavLink({ href, label, icon, active }: { href: string; label: string; icon?: React.ReactNode; active: boolean }) {
     return (
         <Link
             href={href}
             className={`flex items-center gap-3 p-3 rounded-xl transition-all font-bold text-sm no-underline ${active ? "bg-cyan text-navy" : "text-white/60 hover:bg-white/5 hover:text-white"
                 }`}
         >
+            {icon && <span className="flex items-center justify-center">{icon}</span>}
             {label}
         </Link>
     );

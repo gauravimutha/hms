@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LayoutDashboard, FileText, Pill, FlaskRound, BarChart3 } from "lucide-react";
 
 export default function PharmacyLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,11 +25,11 @@ export default function PharmacyLayout({ children }: { children: React.ReactNode
         </Link>
 
         <nav className="flex flex-col gap-2">
-          <NavLink href="/pharmacy-dashboard" label="Dashboard"      icon="🏥" />
-          <NavLink href="/prescriptions"       label="Prescriptions" icon="📋" />
-          <NavLink href="/inventory"           label="Inventory"     icon="💊" />
-          <NavLink href="/dispense"            label="Dispense"      icon="⚗️"  />
-          <NavLink href="/reports"             label="Reports"       icon="📊" />
+          <NavLink href="/pharmacy-dashboard" label="Dashboard"      icon={<LayoutDashboard className="w-4 h-4 shrink-0" />} />
+          <NavLink href="/prescriptions"       label="Prescriptions" icon={<FileText className="w-4 h-4 shrink-0" />} />
+          <NavLink href="/inventory"           label="Inventory"     icon={<Pill className="w-4 h-4 shrink-0" />} />
+          <NavLink href="/dispense"            label="Dispense"      icon={<FlaskRound className="w-4 h-4 shrink-0" />} />
+          <NavLink href="/reports"             label="Reports"       icon={<BarChart3 className="w-4 h-4 shrink-0" />} />
         </nav>
 
         <div className="mt-auto">
@@ -46,13 +47,13 @@ export default function PharmacyLayout({ children }: { children: React.ReactNode
   );
 }
 
-function NavLink({ href, label, icon }: { href: string; label: string; icon: string }) {
+function NavLink({ href, label, icon }: { href: string; label: string; icon: React.ReactNode }) {
   return (
     <Link
       href={href}
       className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-all font-bold text-sm"
     >
-      <span>{icon}</span> {label}
+      <span className="flex items-center justify-center">{icon}</span> {label}
     </Link>
   );
 }

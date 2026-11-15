@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { Clock, AlertTriangle, PauseCircle, Calendar, UserCheck, CheckCircle2 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface QueuePatient {
@@ -68,9 +69,17 @@ function CriticalBadge({ level }: { level: string }) {
 function TypeBadge({ type, scheduledTime }: { type: string; scheduledTime: string | null }) {
     if (type === "appointment" && scheduledTime) {
         const t = new Date(scheduledTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-        return <span className="text-[10px] font-bold text-cyan">📅 {t}</span>;
+        return (
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan">
+                <Calendar className="w-3 h-3 shrink-0" /> {t}
+            </span>
+        );
     }
-    return <span className="text-[10px] text-grey">🚶 Walk-in</span>;
+    return (
+        <span className="inline-flex items-center gap-1 text-[10px] text-grey">
+            <UserCheck className="w-3 h-3 shrink-0" /> Walk-in
+        </span>
+    );
 }
 
 // ── Main component ──────────────────────────────────────────────────────────
@@ -149,9 +158,9 @@ export default function DoctorDashboard() {
     const animatedDeferred = useCountUp(deferred.length, 400, cardsVisible);
 
     const STAT_CARDS = [
-        { label: "Waiting", value: animatedWaiting,  icon: "⏳", bg: "bg-blue-50",    text: "text-blue-600" },
-        { label: "Critical alerts", value: animatedCritical, icon: "⚠", bg: "bg-red-50",  text: "text-red-600" },
-        { label: "Deferred", value: animatedDeferred, icon: "⏸", bg: "bg-amber-50",    text: "text-amber-600" },
+        { label: "Waiting", value: animatedWaiting, icon: <Clock className="w-5 h-5 shrink-0" />, bg: "bg-blue-50", text: "text-blue-600" },
+        { label: "Critical alerts", value: animatedCritical, icon: <AlertTriangle className="w-5 h-5 shrink-0" />, bg: "bg-red-50", text: "text-red-600" },
+        { label: "Deferred", value: animatedDeferred, icon: <PauseCircle className="w-5 h-5 shrink-0" />, bg: "bg-amber-50", text: "text-amber-600" },
     ];
 
     return (

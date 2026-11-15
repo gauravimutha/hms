@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Mail, Globe } from "lucide-react";
 import MarketingNavbar from "@/components/MarketingNavbar";
 import MarketingFooter from "@/components/MarketingFooter";
 import { constructMetadata, getBreadcrumbSchema, getOrganizationSchema } from "@/lib/seo";
@@ -57,8 +58,8 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="bg-white border border-soft-blue rounded-3xl p-8 sm:p-10 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center text-xl font-bold mb-6">
-                ✉
+              <div className="w-12 h-12 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center mb-6">
+                <Mail className="w-6 h-6" />
               </div>
               <h2 className="text-xl font-black text-navy mb-2">Direct Email Inquiries</h2>
               <p className="text-sm text-grey font-light leading-relaxed mb-6">
@@ -79,8 +80,8 @@ export default function ContactPage() {
 
           <div className="bg-white border border-soft-blue rounded-3xl p-8 sm:p-10 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center text-xl font-bold mb-6">
-                🌐
+              <div className="w-12 h-12 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center mb-6">
+                <Globe className="w-6 h-6" />
               </div>
               <h2 className="text-xl font-black text-navy mb-2">Corporate Headquarters</h2>
               <p className="text-sm text-grey font-light leading-relaxed mb-6">
