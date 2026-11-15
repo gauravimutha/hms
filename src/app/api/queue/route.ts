@@ -47,7 +47,7 @@ export async function GET(request: Request) {
     });
 
     // Recompute scores for all entries
-    const scored = entries.map((entry) => {
+    const scored = entries.map((entry: any) => {
       const score = computeQueueScore({
         critical: entry.visit.critical as "low" | "medium" | "high",
         checkInTime: entry.checkInTime,
@@ -60,23 +60,23 @@ export async function GET(request: Request) {
 
     // Sort: WAITING and IN_PROGRESS by score desc, DEFERRED at the end
     const active = scored
-      .filter((e) => e.status === "WAITING" || e.status === "IN_PROGRESS")
-      .sort((a, b) => b.queueScore - a.queueScore);
+      .filter((e: any) => e.status === "WAITING" || e.status === "IN_PROGRESS")
+      .sort((a: any, b: any) => b.queueScore - a.queueScore);
 
-    const deferred = scored.filter((e) => e.status === "DEFERRED");
+    const deferred = scored.filter((e: any) => e.status === "DEFERRED");
 
     // Assign positions (1-indexed, only for active entries)
-    const positioned = active.map((e, i) => ({ ...e, position: i + 1 }));
+    const positioned = active.map((e: any, i: number) => ({ ...e, position: i + 1 }));
 
     // Batch-update scores and positions in DB (fire-and-forget, non-blocking)
-    const updateOps = positioned.map((e) =>
+    const updateOps = positioned.map((e: any) =>
       prisma.queueEntry.update({
         where: { id: e.id },
         data: { queueScore: e.queueScore, position: e.position },
       })
     );
     // Also reset positions for deferred
-    const deferredOps = deferred.map((e) =>
+    const deferredOps = deferred.map((e: any) =>
       prisma.queueEntry.update({
         where: { id: e.id },
         data: { queueScore: e.queueScore, position: null },
@@ -122,8 +122,8 @@ export async function GET(request: Request) {
     };
 
     return NextResponse.json({
-      active: positioned.map((e) => mapEntry(e, e.position)),
-      deferred: deferred.map((e) => mapEntry(e, null)),
+      active: positioned.map((e: any) => mapEntry(e, e.position)),
+      deferred: deferred.map((e: any) => mapEntry(e, null)),
       total: positioned.length,
       lastRefreshed: now.toISOString(),
     });

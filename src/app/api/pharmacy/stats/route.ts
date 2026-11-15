@@ -34,10 +34,10 @@ export async function GET() {
         ]);
 
         const lowStockMedicines = allMedicines.filter(
-            (m) => m.currentStock <= m.minStockLevel
+            (m: any) => m.currentStock <= m.minStockLevel
         ).length;
 
-        const expiringMedicines = allMedicines.filter((m) => {
+        const expiringMedicines = allMedicines.filter((m: any) => {
             if (!m.expiryDate) return false;
             const expiry = new Date(m.expiryDate);
             return expiry >= today && expiry <= in30Days;

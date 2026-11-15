@@ -21,7 +21,7 @@ export async function GET() {
         });
 
         // Flatten for the frontend
-        const mapped = pendingVisits.map((v) => ({
+        const mapped = pendingVisits.map((v: any) => ({
             id: v.id,              // This is now the VISIT id
             patientId: v.patient.id,
             patientCode: v.patient.patientCode,

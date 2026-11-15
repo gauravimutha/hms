@@ -28,7 +28,7 @@ export async function GET(request: Request) {
         });
 
         // Flatten patient data for backward compatibility with pharmacy UI
-        const mapped = prescriptions.map((rx) => ({
+        const mapped = prescriptions.map((rx: any) => ({
             ...rx,
             patient: rx.visit.patient,
         }));
