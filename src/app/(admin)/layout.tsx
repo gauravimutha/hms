@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -18,12 +19,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {/* Sidebar */}
             <aside className="w-64 bg-navy text-white p-6 flex flex-col justify-between shadow-xl">
                 <div className="space-y-8">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan rounded-lg flex items-center justify-center text-navy font-black">A</div>
-                        <div className="text-xl font-black tracking-tighter">
-                            BIZLUME <span className="text-cyan text-[10px] tracking-widest block">ADMIN PANEL</span>
+                    <Link href="/admin-dashboard" className="flex items-center gap-3 no-underline group">
+                        <Image
+                            src="/logo-icon.png"
+                            alt="BizLume Logo"
+                            width={36}
+                            height={36}
+                            className="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform"
+                        />
+                        <div className="flex flex-col">
+                            <span className="text-lg font-black tracking-tight text-white leading-none">
+                                BizLume
+                            </span>
+                            <span className="text-cyan text-[10px] font-bold tracking-widest uppercase mt-0.5">
+                                ADMIN PANEL
+                            </span>
                         </div>
-                    </div>
+                    </Link>
 
                     <nav className="flex flex-col gap-2">
                         <AdminNavLink

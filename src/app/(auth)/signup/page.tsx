@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import ShapeGrid from "@/components/ShapeGrid";
 
 export default function SignupPage() {
@@ -64,10 +65,20 @@ export default function SignupPage() {
         {/* Left Branding Side */}
         <div className="md:w-1/3 bg-navy p-8 flex flex-col justify-between text-white">
           <div>
+            <Link href="/" className="mb-4 inline-block hover:scale-105 transition-transform">
+              <Image
+                src="/logo-icon.png"
+                alt="BizLume Logo"
+                width={44}
+                height={44}
+                className="w-11 h-11 object-contain"
+                priority
+              />
+            </Link>
             <h2 className="text-2xl font-bold">BizLume</h2>
-            <p className="text-cyan text-xs font-bold">Registration</p>
+            <p className="text-cyan text-xs font-bold uppercase tracking-wider mt-0.5">Registration</p>
           </div>
-          <p className="text-xs text-soft-blue/50 leading-relaxed">
+          <p className="text-xs text-soft-blue/50 leading-relaxed mt-6 md:mt-0">
             Joining the ecosystem ensures seamless synchronization and AI-assisted clinical care.
           </p>
         </div>

@@ -1,12 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function PharmacyLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-light-grey">
       <aside className="w-64 bg-navy text-white p-6 flex flex-col gap-8 shrink-0">
-        <div className="text-xl font-black tracking-tighter">
-          BIZLUME <span className="text-cyan text-[10px] tracking-widest">PHARMACY</span>
-        </div>
+        <Link href="/pharmacy-dashboard" className="flex items-center gap-3 no-underline group">
+          <Image
+            src="/logo-icon.png"
+            alt="BizLume Logo"
+            width={36}
+            height={36}
+            className="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform"
+          />
+          <div className="flex flex-col">
+            <span className="text-lg font-black tracking-tight text-white leading-none">
+              BizLume
+            </span>
+            <span className="text-cyan text-[10px] font-bold tracking-widest uppercase mt-0.5">
+              PHARMACY
+            </span>
+          </div>
+        </Link>
 
         <nav className="flex flex-col gap-2">
           <NavLink href="/pharmacy-dashboard" label="Dashboard"      icon="🏥" />

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ShapeGrid from "@/components/ShapeGrid";
 
 export default function LoginPage() {
@@ -89,12 +90,22 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md bg-white/95 backdrop-blur-2xl rounded-3xl shadow-[0_0_40px_rgba(0,180,216,0.15)] border border-cyan/30 overflow-hidden z-10"
       >
-        <div className="bg-navy p-8 text-center relative overflow-hidden">
+        <div className="bg-navy p-8 text-center relative overflow-hidden flex flex-col items-center">
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-cyan/10 rounded-full blur-3xl" />
+          <Link href="/" className="mb-3 hover:scale-105 transition-transform inline-block">
+            <Image
+              src="/logo-icon.png"
+              alt="BizLume Logo"
+              width={52}
+              height={52}
+              className="w-13 h-13 object-contain"
+              priority
+            />
+          </Link>
           <h2 className="text-3xl font-bold text-white tracking-tight">
             BizLume <span className="text-cyan">HMS</span>
           </h2>
-          <p className="text-soft-blue/60 text-xs mt-2 uppercase tracking-widest font-medium">
+          <p className="text-soft-blue/60 text-xs mt-1.5 uppercase tracking-widest font-medium">
             Healthcare Operating System
           </p>
         </div>
