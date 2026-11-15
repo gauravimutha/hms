@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
+    "seed:demo": "tsx scripts/seed-demo.ts",
+    "test:demo": "tsx scripts/test-demo-e2e.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -37,6 +39,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

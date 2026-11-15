@@ -147,25 +147,25 @@ export default function QueueManagerPage() {
   const deferred = queueData?.deferred ?? [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6 w-full min-w-0">
       {/* ── Header ── */}
       <header className="flex items-end justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-navy tracking-tight">Patient Queue</h1>
-          <p className="text-grey text-sm font-medium mt-0.5">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-navy tracking-tight">Patient Queue</h1>
+          <p className="text-grey text-xs sm:text-sm font-medium mt-0.5">
             Live priority queue · Auto-refreshes every 30s
             {lastRefreshed && <span className="ml-2 text-xs text-grey/60">· Last: {lastRefreshed}</span>}
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1">
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 sm:px-3 py-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Live
           </span>
           <button
             onClick={fetchQueue}
             disabled={loading}
-            className="text-xs font-bold px-3 py-1.5 rounded-lg border border-soft-blue bg-white text-navy hover:bg-light-grey transition-all active:scale-95 disabled:opacity-50"
+            className="text-xs font-bold px-2.5 sm:px-3 py-1.5 rounded-lg border border-soft-blue bg-white text-navy hover:bg-light-grey transition-all active:scale-95 disabled:opacity-50"
           >
             {loading ? "Refreshing…" : "↺ Refresh"}
           </button>
@@ -173,22 +173,22 @@ export default function QueueManagerPage() {
       </header>
 
       {/* ── Doctor Selector ── */}
-      <div className="bg-white rounded-2xl border border-soft-blue p-5 shadow-sm">
+      <div className="bg-white rounded-2xl border border-soft-blue p-4 sm:p-5 shadow-sm">
         <p className="text-xs font-bold text-grey uppercase tracking-wider mb-3">Select Doctor</p>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3">
           {doctors.map((doc) => (
             <button
               key={doc.id}
               onClick={() => setSelectedDoctorId(doc.id)}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border text-xs sm:text-sm font-bold transition-all ${
                 selectedDoctorId === doc.id
                   ? "bg-navy text-white border-navy shadow-md"
                   : "bg-light-grey text-navy border-soft-blue hover:border-navy/30"
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${doc.availableNow ? "bg-emerald-400" : "bg-grey/40"}`} />
-              {doc.fullName}
-              <span className={`text-[10px] font-normal ${selectedDoctorId === doc.id ? "text-white/70" : "text-grey"}`}>
+              <span className={`w-2 h-2 rounded-full shrink-0 ${doc.availableNow ? "bg-emerald-400" : "bg-grey/40"}`} />
+              <span className="truncate">{doc.fullName}</span>
+              <span className={`text-[10px] font-normal truncate ${selectedDoctorId === doc.id ? "text-white/70" : "text-grey"}`}>
                 {doc.specialization}
               </span>
             </button>
@@ -201,15 +201,15 @@ export default function QueueManagerPage() {
 
       {/* ── Stats Strip ── */}
       {selectedDoctor && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
           {[
             { label: "In Queue", value: allActive.filter((p) => p.status === "WAITING").length, color: "text-blue-600 bg-blue-50 border-blue-200" },
             { label: "Consulting", value: allActive.filter((p) => p.status === "IN_PROGRESS").length, color: "text-violet-600 bg-violet-50 border-violet-200" },
             { label: "Deferred", value: deferred.length, color: "text-grey bg-light-grey border-soft-blue" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-xl border px-4 py-3 ${s.color}`}>
-              <p className="text-2xl font-black">{s.value}</p>
-              <p className="text-[11px] font-bold uppercase tracking-wider opacity-70">{s.label}</p>
+            <div key={s.label} className={`rounded-xl border px-4 py-2.5 sm:py-3 ${s.color}`}>
+              <p className="text-xl sm:text-2xl font-black">{s.value}</p>
+              <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider opacity-70">{s.label}</p>
             </div>
           ))}
         </div>
@@ -218,7 +218,7 @@ export default function QueueManagerPage() {
       {/* ── Active Queue Table ── */}
       {selectedDoctorId && (
         <div className="bg-white rounded-2xl border border-soft-blue shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-soft-blue flex items-center justify-between">
+          <div className="px-4 sm:px-5 py-3.5 sm:py-4 border-b border-soft-blue flex items-center justify-between">
             <div>
               <h2 className="text-sm font-black text-navy">
                 Active Queue — {selectedDoctor?.fullName ?? ""}
@@ -233,7 +233,7 @@ export default function QueueManagerPage() {
             <div className="py-12 text-center text-sm text-grey">No patients in queue for this doctor.</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-left text-sm min-w-[700px]">
                 <thead>
                   <tr className="bg-light-grey text-[11px] font-bold text-grey uppercase tracking-wider">
                     <th className="px-4 py-2.5 w-12">#</th>

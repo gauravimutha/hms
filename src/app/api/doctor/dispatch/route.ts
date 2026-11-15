@@ -40,26 +40,62 @@ export async function POST(request: Request) {
             }
         });
 
-        // 1. If medicine prescriptions exist, dispatch them to the pharmacy line item collections
+        // 3. If medicine prescriptions exist, dispatch them to the pharmacy line item collections
         if (medicines && medicines.length > 0) {
-            await prisma.prescription.create({
-                data: {
-                    visitId: targetVisitId,
-                    doctorId,
-                    doctorName,
-                    notes: clinicalNotes,
-                    status: "PENDING",
-                    items: {
-                        create: medicines.map((med: any) => ({
-                            medicineId: med.id, // linked to inventory
-                            dosage: med.dosage,
-                            frequency: med.frequency,
-                            duration: med.duration,
-                            quantity: parseInt(med.quantity) || 10,
-                        })),
+            const prescriptionItemsData = [];
+
+            for (const med of medicines) {
+                let medicineId = med.id;
+
+                if (!medicineId && med.name) {
+                    // Try to find existing medicine by name
+                    const existingMed = await prisma.medicine.findFirst({
+                        where: { name: { contains: med.name.trim(), mode: "insensitive" } },
+                    });
+
+                    if (existingMed) {
+                        medicineId = existingMed.id;
+                    } else {
+                        // Create medicine record on the fly so it exists in inventory
+                        const newMed = await prisma.medicine.create({
+                            data: {
+                                name: med.name.trim(),
+                                category: "General Therapeutics",
+                                currentStock: 150,
+                                minStockLevel: 20,
+                                unit: "tablets",
+                                pricePerUnit: 15.0,
+                            },
+                        });
+                        medicineId = newMed.id;
+                    }
+                }
+
+                if (medicineId) {
+                    prescriptionItemsData.push({
+                        medicineId,
+                        dosage: med.dosage || med.dose || "1 tablet",
+                        frequency: med.frequency || med.freq || "Twice daily",
+                        duration: med.duration || med.dur || "5 days",
+                        quantity: parseInt(med.quantity) || 10,
+                    });
+                }
+            }
+
+            if (prescriptionItemsData.length > 0) {
+                await prisma.prescription.create({
+                    data: {
+                        visitId: targetVisitId,
+                        doctorId: doctorId || "DOC-DEFAULT",
+                        doctorName: doctorName || "Attending Doctor",
+                        notes: clinicalNotes || null,
+                        status: "PENDING",
+                        items: {
+                            create: prescriptionItemsData,
+                        },
                     },
-                },
-            });
+                });
+            }
         }
 
         // 2. If lab testing orders are flagged, dispatch them to Lab Dashboard records

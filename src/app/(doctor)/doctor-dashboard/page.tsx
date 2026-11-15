@@ -48,8 +48,8 @@ function PulseDot({ className = "" }: { className?: string }) {
 }
 
 function SeverityBar({ level }: { level: string }) {
-    const colors = { high: "bg-red-500", medium: "bg-amber-400", low: "bg-emerald-500" };
-    return <div className={`w-[3px] self-stretch min-h-[38px] rounded-full mx-[10px] flex-shrink-0 ${(colors as any)[level] ?? "bg-grey"}`} />;
+    const colors: Record<string, string> = { high: "bg-red-500", medium: "bg-amber-400", low: "bg-emerald-500" };
+    return <div className={`w-[3px] self-stretch min-h-[38px] rounded-full mx-[10px] flex-shrink-0 ${colors[level] ?? "bg-grey"}`} />;
 }
 
 function CriticalBadge({ level }: { level: string }) {
@@ -164,39 +164,39 @@ export default function DoctorDashboard() {
     ];
 
     return (
-        <div className="space-y-5 p-6">
+        <div className="space-y-5 p-2 sm:p-4 lg:p-6">
             {/* Header */}
             <header
                 className="flex items-end justify-between flex-wrap gap-3 transition-all duration-400 ease-out"
                 style={{ opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(-8px)" }}
             >
-                <div>
-                    <h1 className="text-xl font-semibold text-gray-950 tracking-tight">Consultation Queue</h1>
-                    <p className="text-sm text-gray-600 mt-0.5">Your assigned patients · Priority-sorted · Auto-refreshes every 30s</p>
+                <div className="min-w-0">
+                    <h1 className="text-xl sm:text-2xl font-semibold text-gray-950 tracking-tight">Consultation Queue</h1>
+                    <p className="text-xs sm:text-sm text-gray-600 mt-0.5">Your assigned patients · Priority-sorted · Auto-refreshes every 30s</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                     <button
                         onClick={() => fetchQueue(true)}
                         disabled={refreshing}
-                        className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-100 active:scale-95 transition-all disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-100 active:scale-95 transition-all disabled:opacity-50"
                     >
                         <svg className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16" />
                         </svg>
                         {refreshing ? "Refreshing…" : "Refresh"}
                     </button>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 sm:px-3 py-1">
                         <PulseDot /> Live
                     </span>
                 </div>
             </header>
 
             {/* Stat cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5">
                 {STAT_CARDS.map((card, i) => (
                     <div
                         key={card.label}
-                        className="flex items-center gap-3.5 bg-gray-50 rounded-xl px-4 py-3.5 border border-gray-100 hover:-translate-y-0.5 transition-all duration-150"
+                        className="flex items-center gap-3.5 bg-gray-50 rounded-xl px-4 py-3 sm:py-3.5 border border-gray-100 hover:-translate-y-0.5 transition-all duration-150"
                         style={{
                             opacity: cardsVisible ? 1 : 0,
                             transform: cardsVisible ? "translateY(0)" : "translateY(10px)",
@@ -206,8 +206,8 @@ export default function DoctorDashboard() {
                         <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-base flex-shrink-0 ${card.bg} ${card.text}`}>
                             {card.icon}
                         </div>
-                        <div>
-                            <p className="text-[11px] font-semibold text-gray-600 uppercase tracking-wide">{card.label}</p>
+                        <div className="min-w-0">
+                            <p className="text-[11px] font-semibold text-gray-600 uppercase tracking-wide truncate">{card.label}</p>
                             <p className={`text-lg font-medium leading-none mt-1 ${card.text}`}>{card.value}</p>
                         </div>
                     </div>
@@ -282,20 +282,11 @@ export default function DoctorDashboard() {
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left" style={{ tableLayout: "fixed" }}>
-                            <colgroup>
-                                <col style={{ width: "6%" }} />
-                                <col style={{ width: "28%" }} />
-                                <col style={{ width: "13%" }} />
-                                <col style={{ width: "16%" }} />
-                                <col style={{ width: "12%" }} />
-                                <col style={{ width: "12%" }} />
-                                <col style={{ width: "13%" }} />
-                            </colgroup>
+                        <table className="w-full text-left min-w-[650px]">
                             <thead>
                                 <tr className="bg-gray-50 border-b border-gray-100">
                                     {["#", "Patient", "Critical", "Type", "Waiting", "Score", ""].map((h) => (
-                                        <th key={h} className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide px-4 py-2.5">
+                                        <th key={h} className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide px-3 sm:px-4 py-2.5 whitespace-nowrap">
                                             {h}
                                         </th>
                                     ))}

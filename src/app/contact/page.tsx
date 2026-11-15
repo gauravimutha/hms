@@ -33,7 +33,7 @@ export default function ContactPage() {
 
       <MarketingNavbar />
 
-      <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto w-full">
+      <main className="pt-28 sm:pt-32 pb-24 px-4 sm:px-6 max-w-4xl mx-auto w-full">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-semibold text-grey">
           <Link href="/" className="hover:text-navy transition-colors no-underline">
@@ -51,12 +51,12 @@ export default function ContactPage() {
             Connect with BizLume HMS
           </h1>
           <p className="text-base text-grey font-light max-w-xl mx-auto">
-            Speak directly with our healthcare software architects to review your facility's requirements.
+            Speak directly with our healthcare software architects to review your facility&apos;s requirements.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white border border-soft-blue rounded-3xl p-8 sm:p-10 shadow-sm flex flex-col justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+          <div className="bg-white border border-soft-blue rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-cyan/10 text-cyan flex items-center justify-center mb-6">
                 <Mail className="w-6 h-6" />

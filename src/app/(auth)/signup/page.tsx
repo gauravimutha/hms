@@ -43,7 +43,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden bg-navy">
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden bg-navy">
       {/* Animated Background */}
       <div className="absolute inset-0 z-0">
         <ShapeGrid 
@@ -63,7 +63,7 @@ export default function SignupPage() {
         className="w-full max-w-2xl bg-white/95 backdrop-blur-2xl rounded-3xl shadow-[0_0_40px_rgba(0,180,216,0.15)] border border-cyan/30 flex flex-col md:flex-row overflow-hidden z-10"
       >
         {/* Left Branding Side */}
-        <div className="md:w-1/3 bg-navy p-8 flex flex-col justify-between text-white">
+        <div className="md:w-1/3 bg-navy p-6 sm:p-8 flex flex-col justify-between text-white">
           <div>
             <Link href="/" className="mb-4 inline-block hover:scale-105 transition-transform">
               <Image
@@ -78,13 +78,13 @@ export default function SignupPage() {
             <h2 className="text-2xl font-bold">BizLume</h2>
             <p className="text-cyan text-xs font-bold uppercase tracking-wider mt-0.5">Registration</p>
           </div>
-          <p className="text-xs text-soft-blue/50 leading-relaxed mt-6 md:mt-0">
+          <p className="text-xs text-soft-blue/50 leading-relaxed mt-4 md:mt-0">
             Joining the ecosystem ensures seamless synchronization and AI-assisted clinical care.
           </p>
         </div>
 
         {/* Right Form Side */}
-        <div className="flex-1 p-10 space-y-6">
+        <div className="flex-1 p-5 sm:p-8 md:p-10 space-y-5 sm:space-y-6">
           <header>
             <h1 className="text-2xl font-bold text-dark">Create Account</h1>
             <p className="text-grey text-sm">Fill in your professional details.</p>

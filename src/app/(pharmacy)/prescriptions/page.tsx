@@ -50,19 +50,19 @@ export default function PrescriptionsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full min-w-0">
       <header>
-        <h1 className="text-3xl font-black text-navy">Prescription Queue</h1>
-        <p className="text-grey font-medium">View and manage all patient prescriptions.</p>
+        <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">Prescription Queue</h1>
+        <p className="text-xs sm:text-sm text-grey font-medium mt-0.5">View and manage all patient prescriptions.</p>
       </header>
 
       {/* Filters + Search */}
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center">
         {(["ALL", "PENDING", "DISPENSED", "PARTIAL", "CANCELLED"] as const).map((s) => (
           <button
             key={s}
             onClick={() => setFilter(s)}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+            className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
               filter === s ? "bg-cyan text-white shadow-md" : "bg-white border border-soft-blue text-grey hover:border-cyan"
             }`}
           >
@@ -74,7 +74,7 @@ export default function PrescriptionsPage() {
           placeholder="Search patient or ID..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="ml-auto p-3 bg-white border border-soft-blue rounded-xl outline-none focus:ring-2 focus:ring-cyan text-sm w-64"
+          className="w-full sm:w-64 sm:ml-auto p-2.5 sm:p-3 bg-white border border-soft-blue rounded-xl outline-none focus:ring-2 focus:ring-cyan text-sm"
         />
       </div>
 
@@ -86,24 +86,24 @@ export default function PrescriptionsPage() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.04 }}
-            className="bg-white rounded-2xl border border-soft-blue p-5 shadow-sm"
+            className="bg-white rounded-2xl border border-soft-blue p-4 sm:p-5 shadow-sm"
           >
-            <div className="flex justify-between items-start flex-wrap gap-4">
-              <div>
-                <p className="font-black text-navy text-base">{p.patient.name}</p>
-                <p className="text-xs text-grey font-medium">
+            <div className="flex justify-between items-start flex-wrap gap-3">
+              <div className="min-w-0">
+                <p className="font-black text-navy text-base truncate">{p.patient.name}</p>
+                <p className="text-xs text-grey font-medium break-all">
                   ID: {p.id.slice(0, 8).toUpperCase()} · Dr. {p.doctorName ?? "Unknown"} · {new Date(p.createdAt).toLocaleDateString("en-IN")}
                 </p>
               </div>
-              <span className={`text-[10px] font-black uppercase px-3 py-1 rounded-full ${STATUS_STYLES[p.status]}`}>
+              <span className={`text-[10px] font-black uppercase px-3 py-1 rounded-full shrink-0 ${STATUS_STYLES[p.status]}`}>
                 {p.status}
               </span>
             </div>
 
             {/* Medicine Items */}
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {p.items.map((item, j) => (
-                <div key={j} className="bg-light-grey rounded-xl px-3 py-2 text-xs font-bold text-navy">
+                <div key={j} className="bg-light-grey rounded-xl px-3 py-2 text-xs font-bold text-navy break-words">
                   💊 {item.medicine.name} — {item.dosage} × {item.quantity}
                 </div>
               ))}
@@ -111,7 +111,7 @@ export default function PrescriptionsPage() {
 
             {/* Actions */}
             {p.status === "PENDING" && (
-              <div className="mt-4 flex gap-2">
+              <div className="mt-4 flex gap-2 flex-wrap">
                 <button
                   onClick={() => updateStatus(p.id, "DISPENSED")}
                   className="bg-cyan text-white px-4 py-2 rounded-xl text-xs font-black hover:bg-navy transition-all"

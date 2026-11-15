@@ -5,6 +5,7 @@ import Tesseract from "tesseract.js";
 import { pdf } from "@react-pdf/renderer";
 import PatientRegistrationPDF from "@/components/PatientRegistrationPDF";
 import type { PatientPDFData } from "@/components/PatientRegistrationPDF";
+import { isDemoEnabled } from "@/lib/demo/demoConfig";
 
 interface PatientForm {
   name: string;
@@ -110,6 +111,58 @@ export default function NewPatientPage() {
   const TODAY_NAME = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date().getDay()];
   const selectedDoctor = doctors.find((d) => d.id === form.doctorProfileId);
   const todaySlots: string[] = selectedDoctor?.weeklySlots?.[TODAY_NAME] || [];
+
+  const handleAutofillDemoPatient = () => {
+    const docId = doctors.find((d) => d.fullName.toLowerCase().includes("aarav"))?.id || doctors[0]?.id || "";
+    const uniqueSuffix = Math.floor(1000 + Math.random() * 9000);
+    setForm({
+      name: "Rajesh Kumar Sharma",
+      age: "52",
+      gender: "Male",
+      dateOfBirth: "1974-05-14",
+      bloodGroup: "B+",
+      maritalStatus: "Married",
+      nationality: "Indian",
+      phone: `98201${uniqueSuffix}`,
+      alternatePhone: "9820199000",
+      email: "rajesh.sharma@example.com",
+      addressLine1: "Flat 402, Neelkanth Heights, Senapati Bapat Marg",
+      addressLine2: "Lower Parel",
+      city: "Mumbai",
+      state: "Maharashtra",
+      pincode: "400013",
+      country: "India",
+      emergencyContactName: "Kavita Sharma",
+      emergencyContactRelationship: "Spouse",
+      emergencyContactPhone: "9820199999",
+      aadhaarNumber: "847291038472",
+      aadhaarFile: null,
+      allergies: "Severe allergy to Penicillin & Amoxicillin",
+      existingConditions: ["Hypertension", "Dyslipidemia"],
+      otherCondition: "",
+      currentMedications: "Amlodipine 5mg once daily",
+      pastSurgeries: "Appendectomy (2014)",
+      disabilityInfo: "None",
+      critical: "high",
+      doctorProfileId: docId,
+      visitType: "walkin",
+      scheduledTime: "",
+      detailsAccurate: true,
+      privacyAccepted: true,
+    });
+    setStep(4);
+    setIsReturning(false);
+  };
+
+  useEffect(() => {
+    const onAutofill = (e: any) => {
+      if (e.detail?.type === "PATIENT_REGISTRATION") {
+        handleAutofillDemoPatient();
+      }
+    };
+    window.addEventListener("bizlume:demo:autofill", onAutofill);
+    return () => window.removeEventListener("bizlume:demo:autofill", onAutofill);
+  }, [doctors]);
 
   // ── Returning patient lookup ──
   const [lookupQuery, setLookupQuery] = useState("");
@@ -320,16 +373,27 @@ export default function NewPatientPage() {
     <div className="max-w-5xl mx-auto">
       <div className="bg-white rounded-2xl shadow-sm border border-soft-blue overflow-hidden">
         {/* Header */}
-        <div className="bg-navy px-8 py-5">
-          <h3 className="text-white text-xl font-semibold">Registration Desk</h3>
-          <p className="text-cyan text-xs uppercase tracking-wider mt-1">{isReturning ? "Returning Patient — New Visit" : "New Patient Intake"}</p>
+        <div className="bg-navy px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-white text-lg sm:text-xl font-semibold">Registration Desk</h3>
+            <p className="text-cyan text-[10px] sm:text-xs uppercase tracking-wider mt-1">{isReturning ? "Returning Patient — New Visit" : "New Patient Intake"}</p>
+          </div>
+          {isDemoEnabled() && (
+            <button
+              type="button"
+              onClick={handleAutofillDemoPatient}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan text-navy text-xs font-black hover:opacity-90 transition-opacity shadow-sm self-start sm:self-auto"
+            >
+              <span>⚡ Autofill Demo Patient</span>
+            </button>
+          )}
         </div>
 
         {/* Returning Patient Lookup */}
         {!submittedPatient && !isReturning && (
-          <div className="px-8 pt-6 pb-2 border-b border-soft-blue">
+          <div className="px-4 sm:px-6 lg:px-8 pt-5 pb-3 border-b border-soft-blue">
             <p className="text-xs font-bold text-grey uppercase tracking-wider mb-2">Returning Patient? Search by Patient ID, Phone, or Name</p>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 placeholder="e.g. HMS-0001 or 9876543210"
@@ -338,7 +402,7 @@ export default function NewPatientPage() {
                 onChange={(e) => setLookupQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), searchPatient())}
               />
-              <button type="button" onClick={searchPatient} disabled={lookupLoading || lookupQuery.length < 3} className="bg-navy text-white px-6 py-3 rounded-xl text-xs font-bold disabled:opacity-50 transition-all active:scale-95">
+              <button type="button" onClick={searchPatient} disabled={lookupLoading || lookupQuery.length < 3} className="bg-navy text-white px-5 sm:px-6 py-3 rounded-xl text-xs font-bold disabled:opacity-50 transition-all active:scale-95 whitespace-nowrap self-stretch sm:self-auto">
                 {lookupLoading ? "Searching..." : "Search"}
               </button>
             </div>
@@ -360,17 +424,17 @@ export default function NewPatientPage() {
 
         {/* Returning patient banner */}
         {!submittedPatient && isReturning && selectedPatient && (
-          <div className="px-8 pt-4 pb-3 bg-cyan/5 border-b border-cyan/20 flex items-center justify-between">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-3 bg-cyan/5 border-b border-cyan/20 flex items-center justify-between gap-3 flex-wrap">
             <div>
               <p className="text-sm font-bold text-navy">Returning: {selectedPatient.name} <span className="font-mono text-xs text-grey">{selectedPatient.patientCode}</span></p>
               <p className="text-xs text-grey">A new visit will be created for this existing patient.</p>
             </div>
-            <button type="button" onClick={clearReturning} className="text-xs font-bold text-status-red hover:underline">Cancel</button>
+            <button type="button" onClick={clearReturning} className="text-xs font-bold text-status-red hover:underline shrink-0">Cancel</button>
           </div>
         )}
         {/* Returning patient — quick visit creation */}
         {!submittedPatient && isReturning && selectedPatient && (
-          <form onSubmit={handleSubmit} className="p-8 space-y-6 animate-in fade-in">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 lg:p-8 space-y-6 animate-in fade-in">
             <h4 className="text-navy font-bold text-base border-b border-soft-blue pb-2">Create New Visit</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Field label="Critical Level" field="critical" required errors={errors}>
@@ -633,14 +697,14 @@ export default function NewPatientPage() {
 
         {/* Step Indicator (new patients only) */}
         {!submittedPatient && !isReturning && (
-          <div className="px-8 pt-6 pb-2">
-            <div className="flex items-center justify-between gap-2">
+          <div className="px-4 sm:px-6 lg:px-8 pt-5 pb-2">
+            <div className="flex items-center justify-between gap-1.5 sm:gap-2">
               {STEPS.map((s, i) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => { if (i < step) setStep(i); }}
-                  className={`flex-1 text-center py-2 rounded-lg text-xs font-bold transition-all ${i === step ? "bg-cyan text-white shadow-md shadow-cyan/20" :
+                  className={`flex-1 text-center py-2 px-1 rounded-lg text-xs font-bold transition-all truncate ${i === step ? "bg-cyan text-white shadow-md shadow-cyan/20" :
                     i < step ? "bg-soft-blue text-navy cursor-pointer hover:bg-cyan/20" :
                       "bg-light-grey text-grey"
                     }`}
@@ -657,18 +721,18 @@ export default function NewPatientPage() {
         )}
 
         {submittedPatient ? (
-          <div className="p-12 text-center space-y-6 animate-in fade-in zoom-in">
-            <div className="w-20 h-20 bg-status-green/10 text-status-green rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <div className="p-6 sm:p-12 text-center space-y-6 animate-in fade-in zoom-in">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-status-green/10 text-status-green rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-navy">{(submittedPatient as any).isReturning ? "New Visit Created!" : "Registration Successful!"}</h2>
-            <p className="text-grey max-w-md mx-auto">
+            <h2 className="text-xl sm:text-2xl font-bold text-navy">{(submittedPatient as any).isReturning ? "New Visit Created!" : "Registration Successful!"}</h2>
+            <p className="text-grey max-w-md mx-auto text-sm sm:text-base">
               Patient <span className="font-semibold text-dark">{submittedPatient.name}</span> — Patient ID: <span className="font-semibold text-dark">{(submittedPatient as any).patientCode || submittedPatient.id}</span>
             </p>
 
-            <div className="pt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={async () => {
@@ -680,7 +744,7 @@ export default function NewPatientPage() {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="bg-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-cyan transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
+                className="bg-navy text-white px-6 sm:px-8 py-3 rounded-xl font-bold hover:bg-cyan transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 text-sm"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -697,14 +761,14 @@ export default function NewPatientPage() {
                   setSelectedPatient(null);
                   setIsReturning(false);
                 }}
-                className="bg-light-grey text-navy px-8 py-3 rounded-xl font-bold border border-soft-blue hover:bg-soft-blue transition-all active:scale-95"
+                className="bg-light-grey text-navy px-6 sm:px-8 py-3 rounded-xl font-bold border border-soft-blue hover:bg-soft-blue transition-all active:scale-95 text-sm"
               >
                 Register Another
               </button>
             </div>
           </div>
         ) : !isReturning && (
-          <form onSubmit={handleSubmit} className="p-8 pt-4">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 lg:p-8 pt-4">
             {/* ── STEP 0: Personal Information ── */}
             {step === 0 && (
               <div className="space-y-6 animate-in fade-in">
@@ -1036,19 +1100,19 @@ export default function NewPatientPage() {
             )}
 
             {/* ── Navigation Buttons ── */}
-            <div className="pt-6 mt-6 border-t border-soft-blue flex justify-between">
+            <div className="pt-6 mt-6 border-t border-soft-blue flex items-center justify-between gap-3">
               {step > 0 ? (
-                <button type="button" onClick={prevStep} className="px-8 py-3 rounded-xl font-bold border border-soft-blue text-navy hover:bg-soft-blue transition-all active:scale-95">
+                <button type="button" onClick={prevStep} className="px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold border border-soft-blue text-navy hover:bg-soft-blue transition-all active:scale-95 text-xs sm:text-sm">
                   ← Back
                 </button>
               ) : <div />}
 
               {step < STEPS.length - 1 ? (
-                <button type="button" onClick={nextStep} className="bg-cyan text-white px-10 py-3 rounded-xl font-bold shadow-lg shadow-cyan/20 hover:bg-navy transition-all active:scale-95">
+                <button type="button" onClick={nextStep} className="bg-cyan text-white px-5 sm:px-10 py-2.5 sm:py-3 rounded-xl font-bold shadow-lg shadow-cyan/20 hover:bg-navy transition-all active:scale-95 text-xs sm:text-sm">
                   Next →
                 </button>
               ) : (
-                <button type="submit" disabled={loading} className="bg-cyan text-white px-12 py-3 rounded-xl font-bold shadow-lg shadow-cyan/20 hover:bg-navy transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button type="submit" disabled={loading} className="bg-cyan text-white px-5 sm:px-12 py-2.5 sm:py-3 rounded-xl font-bold shadow-lg shadow-cyan/20 hover:bg-navy transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm">
                   {loading ? "Registering..." : "Complete Registration"}
                 </button>
               )}

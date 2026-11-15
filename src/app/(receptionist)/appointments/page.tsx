@@ -169,20 +169,20 @@ export default function AppointmentPage() {
     }, []);
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8 w-full min-w-0">
             <header>
-                <h1 className="text-3xl font-black text-navy tracking-tight">Appointments</h1>
-                <p className="text-grey font-medium mt-1">
+                <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">Appointments</h1>
+                <p className="text-xs sm:text-sm text-grey font-medium mt-1">
                     Doctor schedules · Live patient queues per doctor · Auto-refreshes every 30s
                 </p>
             </header>
 
             {/* Date strip */}
-            <div className="flex items-center gap-3">
-                <div className="bg-navy text-white px-4 py-2 rounded-xl text-sm font-black capitalize">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <div className="bg-navy text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black capitalize shrink-0">
                     {TODAY_NAME}
                 </div>
-                <p className="text-grey font-medium text-sm">
+                <p className="text-grey font-medium text-xs sm:text-sm">
                     {new Date().toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                 </p>
             </div>
@@ -190,12 +190,12 @@ export default function AppointmentPage() {
             {loading ? (
                 <div className="py-12 text-center text-sm font-bold text-grey">Loading doctor schedules…</div>
             ) : doctors.length === 0 ? (
-                <div className="bg-white border border-soft-blue rounded-2xl p-8 text-center">
+                <div className="bg-white border border-soft-blue rounded-2xl p-6 sm:p-8 text-center">
                     <p className="text-grey font-bold text-sm">No doctors have configured their profiles yet.</p>
                     <p className="text-xs text-grey mt-1">Doctors need to fill in their profile from the Doctor Portal first.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
                     {doctors.map((doc) => (
                         <DoctorQueueCard key={doc.id} doctor={doc} />
                     ))}

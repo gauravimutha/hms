@@ -55,7 +55,7 @@ export default function DrawingCanvas({ active, onClose }: Props) {
     return (
         <div className="absolute inset-0 z-30">
             {/* Toolbar */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 bg-navy/95 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-lg border border-white/10"
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 sm:gap-1.5 bg-navy/95 backdrop-blur-sm rounded-xl px-2 sm:px-3 py-1.5 shadow-lg border border-white/10 max-w-[96%] overflow-x-auto scrollbar-none"
                 style={{ animation: "slideDown 0.3s ease-out" }}>
                 <button onClick={() => setTool("pen")} className={`p-1.5 rounded-lg transition-all ${tool === "pen" ? "bg-cyan text-navy" : "text-white/60 hover:text-white"}`} title="Pen"><PenIcon /></button>
                 <button onClick={() => setTool("eraser")} className={`p-1.5 rounded-lg transition-all ${tool === "eraser" ? "bg-cyan text-navy" : "text-white/60 hover:text-white"}`} title="Eraser"><EraserIcon /></button>

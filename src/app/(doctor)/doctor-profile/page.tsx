@@ -14,7 +14,6 @@ const SPECIALIZATIONS = [
 type WeeklySlots = Record<string, string[]>;
 
 export default function DoctorProfilePage() {
-    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -124,28 +123,28 @@ export default function DoctorProfilePage() {
     if (loading) return <div className="py-20 text-center text-sm font-bold text-grey">Loading profile...</div>;
 
     return (
-        <div className="space-y-6 max-w-4xl">
-            <header className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-black text-navy tracking-tight">Doctor Profile Setup</h1>
-                    <p className="text-sm text-grey font-medium">Configure your availability & consultation details. This data is visible to receptionists.</p>
+        <div className="space-y-6 max-w-4xl w-full">
+            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="min-w-0">
+                    <h1 className="text-xl sm:text-2xl font-black text-navy tracking-tight">Doctor Profile Setup</h1>
+                    <p className="text-xs sm:text-sm text-grey font-medium">Configure your availability & consultation details. This data is visible to receptionists.</p>
                 </div>
                 {/* Live availability toggle */}
                 <button
                     onClick={toggleAvailability}
-                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-bold text-sm transition-all border ${availableNow
+                    className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all border self-start sm:self-auto shrink-0 ${availableNow
                             ? "bg-status-green/10 border-status-green/30 text-status-green"
                             : "bg-grey/5 border-grey/20 text-grey"
                         }`}
                 >
-                    <span className={`w-3 h-3 rounded-full transition-all ${availableNow ? "bg-status-green animate-pulse" : "bg-grey/40"}`} />
+                    <span className={`w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full transition-all ${availableNow ? "bg-status-green animate-pulse" : "bg-grey/40"}`} />
                     {availableNow ? "Available Now" : "Not Available"}
                 </button>
             </header>
 
             {/* Personal Details */}
-            <div className="bg-white border border-soft-blue rounded-2xl p-6 shadow-sm space-y-4">
-                <h3 className="text-sm font-black text-navy uppercase tracking-wide">Professional Information</h3>
+            <div className="bg-white border border-soft-blue rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+                <h3 className="text-xs sm:text-sm font-black text-navy uppercase tracking-wide">Professional Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="text-xs font-bold text-grey block mb-1">Full Name *</label>
@@ -189,8 +188,8 @@ export default function DoctorProfilePage() {
             </div>
 
             {/* Weekly Time Slots */}
-            <div className="bg-white border border-soft-blue rounded-2xl p-6 shadow-sm space-y-4">
-                <h3 className="text-sm font-black text-navy uppercase tracking-wide">Weekly Availability Slots</h3>
+            <div className="bg-white border border-soft-blue rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+                <h3 className="text-xs sm:text-sm font-black text-navy uppercase tracking-wide">Weekly Availability Slots</h3>
                 <p className="text-xs text-grey">Add time ranges for each day. Different days can have different slots.</p>
 
                 <div className="space-y-3">
@@ -212,7 +211,7 @@ export default function DoctorProfilePage() {
                             </div>
 
                             {/* Add new slot */}
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                                 <input
                                     type="text"
                                     value={newSlot[day] || ""}
@@ -221,7 +220,7 @@ export default function DoctorProfilePage() {
                                     className="flex-1 bg-white text-navy text-xs font-semibold p-2 rounded-lg border border-soft-blue/40 focus:outline-none"
                                     placeholder="e.g., 09:00 - 12:00"
                                 />
-                                <button onClick={() => addSlot(day)} className="bg-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">
+                                <button onClick={() => addSlot(day)} className="bg-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap self-stretch sm:self-auto">
                                     + Add
                                 </button>
                             </div>

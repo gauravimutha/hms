@@ -58,9 +58,9 @@ export default async function LocationDetailPage({ params }: Props) {
 
       <MarketingNavbar />
 
-      <main className="pt-32 pb-24 px-6 max-w-5xl mx-auto w-full">
+      <main className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-5xl mx-auto w-full min-w-0">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-semibold text-grey">
+        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-grey">
           <Link href="/" className="hover:text-navy transition-colors no-underline">
             Home
           </Link>
@@ -69,26 +69,26 @@ export default async function LocationDetailPage({ params }: Props) {
         </nav>
 
         {/* Hero */}
-        <div className="mb-14">
+        <div className="mb-12 sm:mb-14">
           <span className="inline-block px-3.5 py-1 rounded-full bg-cyan/10 border border-cyan/20 text-cyan text-[11px] font-bold tracking-widest uppercase mb-4">
             Regional Healthcare Hub &middot; {location.state}
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-navy tracking-tight leading-tight mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-navy tracking-tight leading-tight mb-4 sm:mb-6">
             Hospital Management Software in {location.cityName}
           </h1>
-          <p className="text-lg text-grey font-light leading-relaxed max-w-3xl mb-6">
+          <p className="text-base sm:text-lg text-grey font-light leading-relaxed max-w-3xl mb-6">
             {location.healthcareContext}
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
             <a
-              href="mailto:contact@bizlume.in?subject=Demo%20Request%20for%20BizLume%20HMS%20in%20Mumbai"
-              className="bg-navy text-white px-7 py-3.5 rounded-xl font-bold text-sm hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-md"
+              href={`mailto:contact@bizlume.in?subject=Demo%20Request%20for%20BizLume%20HMS%20in%20${location.cityName}`}
+              className="w-full sm:w-auto text-center bg-navy text-white px-7 py-3.5 rounded-xl font-bold text-sm hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-md"
             >
               Schedule {location.cityName} Demonstration →
             </a>
             <Link
               href="/features/clinical-emr"
-              className="bg-white border border-soft-blue text-navy px-6 py-3.5 rounded-xl font-bold text-sm hover:border-cyan transition-all duration-200 no-underline"
+              className="w-full sm:w-auto text-center bg-white border border-soft-blue text-navy px-6 py-3.5 rounded-xl font-bold text-sm hover:border-cyan transition-all duration-200 no-underline"
             >
               Explore Core Capabilities
             </Link>
@@ -96,28 +96,28 @@ export default async function LocationDetailPage({ params }: Props) {
         </div>
 
         {/* Key Challenges Addressed */}
-        <div className="mb-16 bg-white border border-soft-blue rounded-3xl p-8 sm:p-12 shadow-sm">
-          <h2 className="text-2xl font-black text-navy mb-6">
+        <div className="mb-12 sm:mb-16 bg-white border border-soft-blue rounded-3xl p-6 sm:p-12 shadow-sm">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">
             Operational Demands Addressed in {location.cityName}
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {location.keyChallengesAddressed.map((challenge, idx) => (
-              <div key={idx} className="flex items-start gap-3.5 p-3.5 bg-light-grey rounded-2xl border border-soft-blue">
+              <div key={idx} className="flex items-start gap-3 sm:gap-3.5 p-3 sm:p-3.5 bg-light-grey rounded-2xl border border-soft-blue">
                 <span className="w-6 h-6 rounded-lg bg-cyan text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   ✓
                 </span>
-                <span className="text-sm font-medium text-dark leading-relaxed">{challenge}</span>
+                <span className="text-xs sm:text-sm font-medium text-dark leading-relaxed">{challenge}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Suitable Facilities */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-navy mb-6">Applicable Healthcare Environments</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">Applicable Healthcare Environments</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
             {location.suitableFacilities.map((fac, idx) => (
-              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-6 shadow-sm">
+              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-5 sm:p-6 shadow-sm">
                 <span className="text-xs font-bold text-cyan uppercase tracking-wider block mb-2">Category</span>
                 <h3 className="text-sm font-bold text-navy leading-snug">{fac}</h3>
               </div>
@@ -126,31 +126,31 @@ export default async function LocationDetailPage({ params }: Props) {
         </div>
 
         {/* FAQs */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-navy mb-6">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">
             Local Deployment & Compliance FAQs
           </h2>
           <div className="space-y-4">
             {location.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-6">
+              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-5 sm:p-6">
                 <h3 className="text-base font-bold text-navy mb-2">{faq.question}</h3>
-                <p className="text-sm text-grey leading-relaxed font-light">{faq.answer}</p>
+                <p className="text-xs sm:text-sm text-grey leading-relaxed font-light">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="bg-navy text-white rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
-          <h3 className="text-2xl sm:text-3xl font-black mb-3">
+        <div className="bg-navy text-white rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden">
+          <h3 className="text-xl sm:text-3xl font-black mb-3">
             Equip Your Facility in {location.cityName} with BizLume HMS
           </h3>
-          <p className="text-white/70 text-sm max-w-lg mx-auto mb-6">
+          <p className="text-white/70 text-xs sm:text-sm max-w-lg mx-auto mb-6">
             Contact our engineering and clinical onboarding group for tailored deployment timelines and live demo trials.
           </p>
           <a
             href="mailto:contact@bizlume.in"
-            className="inline-block bg-cyan text-navy font-bold px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg shadow-cyan/20 text-sm"
+            className="inline-block w-full sm:w-auto bg-cyan text-navy font-bold px-6 sm:px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg shadow-cyan/20 text-sm break-all"
           >
             Inquire at contact@bizlume.in
           </a>

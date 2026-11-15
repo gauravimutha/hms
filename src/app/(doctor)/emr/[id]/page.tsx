@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use } from "react";
 import Link from "next/link";
+import { isDemoEnabled } from "@/lib/demo/demoConfig";
 
 interface RouteParams { id: string; }
 
@@ -74,9 +75,36 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
     const [footerText, setFooterText] = useState("Please bring this prescription note on your next visit.");
     const [dispatched, setDispatched] = useState(false);
 
+    const handleAutofillEMR = () => {
+        setChiefComplaint("Acute retrosternal chest pain radiating to left arm with shortness of breath.");
+        setClinicalNotes("Patient evaluated in acute bay. Diaphoretic, S1/S2 present, tachycardia 96 bpm, BP elevated 158/98. ECG demonstrates ST changes in lateral leads. High-sensitivity cardiac enzyme workup indicated.");
+        setDiagnosis("Acute Coronary Syndrome (Unstable Angina) - Rule out NSTEMI");
+        setConsultationFee(500);
+        setMedicines([
+            { name: "Calpol 650 (Paracetamol 650mg)", dose: "650mg", freq: "SOS for pain/fever", dur: "3 days" },
+            { name: "Pantocid 40 (Pantoprazole 40mg)", dose: "40mg", freq: "Once daily morning", dur: "5 days" },
+            { name: "Atorva 20 (Atorvastatin 20mg)", dose: "20mg", freq: "Once daily bedtime", dur: "30 days" },
+        ]);
+        setLabs([
+            "Troponin I (High-Sensitivity)",
+            "Complete Blood Count (CBC)",
+            "12-Lead ECG"
+        ]);
+    };
+
+    useEffect(() => {
+        const onAutofill = (e: any) => {
+            if (e.detail?.type === "DOCTOR_EMR") {
+                handleAutofillEMR();
+            }
+        };
+        window.addEventListener("bizlume:demo:autofill", onAutofill);
+        return () => window.removeEventListener("bizlume:demo:autofill", onAutofill);
+    }, []);
+
     const getAISuggestions = () => {
         if (!chiefComplaint && !clinicalNotes) return "AI Copilot: Update context fields or symptoms to prompt automated diagnostic warnings.";
-        let checks: string[] = [];
+        const checks: string[] = [];
         const allergies = patientData?.allergies?.toLowerCase() || "";
         if (allergies.includes("penicillin") || allergies.includes("amoxicillin")) {
             checks.push("ALLERGY WARNING: Background records indicate a severe allergic reaction history to Penicillin / Amoxicillin family variants.");
@@ -196,33 +224,42 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
     const totalVisits = (patientData.pastVisits?.length || 0) + 1;
 
     return (
-        <div className="space-y-8 print-wrapper">
+        <div className="space-y-6 sm:space-y-8 print-wrapper w-full min-w-0">
             {/* Top Command Actions */}
-            <div className="flex justify-between items-center no-print">
-                <div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+                <div className="min-w-0">
                     <Link href="/doctor-dashboard" className="text-xs font-bold text-navy hover:underline">&larr; Back to Dashboard Queue</Link>
-                    <h1 className="text-2xl font-black text-navy mt-1">EMR Workstation</h1>
+                    <h1 className="text-xl sm:text-2xl font-black text-navy mt-1">EMR Workstation</h1>
                 </div>
-                <div className="flex items-center gap-3">
-                    <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-lg ${criticalBadge}`}>
+                <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+                    <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-lg shrink-0 ${criticalBadge}`}>
                         {patientData.critical} priority
                     </span>
-                    <button onClick={() => window.print()} className="bg-navy hover:bg-navy/90 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center">
-                        <PrinterIcon /> Print Prescription Summary
+                    {isDemoEnabled() && (
+                        <button
+                            type="button"
+                            onClick={handleAutofillEMR}
+                            className="bg-cyan hover:opacity-90 text-navy font-black text-xs px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl transition-all shadow-sm"
+                        >
+                            ⚡ Autofill Consultation
+                        </button>
+                    )}
+                    <button onClick={() => window.print()} className="bg-navy hover:bg-navy/90 text-white font-bold text-xs px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all flex items-center whitespace-nowrap">
+                        <PrinterIcon /> Print Prescription
                     </button>
                 </div>
             </div>
 
             {/* Patient Summary Grid */}
-            <div className="bg-white border border-soft-blue rounded-2xl p-6 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-6 no-print">
-                <div className="space-y-1">
+            <div className="bg-white border border-soft-blue rounded-2xl p-4 sm:p-6 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 no-print">
+                <div className="space-y-1 min-w-0">
                     <p className="text-xs font-bold text-grey uppercase tracking-wide">Patient Demographics</p>
-                    <h2 className="text-lg font-black text-navy">{patientData.name}</h2>
+                    <h2 className="text-base sm:text-lg font-black text-navy break-words">{patientData.name}</h2>
                     <p className="text-xs font-bold text-grey">{patientData.gender} &bull; {patientData.age} Years{patientData.bloodGroup ? ` • Blood Group: ${patientData.bloodGroup}` : ""}</p>
-                    <p className="text-xs text-grey">{patientData.phone}{patientData.email ? ` • ${patientData.email}` : ""}</p>
+                    <p className="text-xs text-grey break-all">{patientData.phone}{patientData.email ? ` • ${patientData.email}` : ""}</p>
                     <p className="text-[11px] text-grey leading-tight mt-1">{address}</p>
                 </div>
-                <div className="space-y-2 border-l border-soft-blue pl-6">
+                <div className="space-y-2 border-t md:border-t-0 md:border-l border-soft-blue pt-4 md:pt-0 md:pl-6 min-w-0">
                     <div>
                         <span className="text-xs font-bold text-grey block uppercase tracking-wide">Medical History</span>
                         {patientData.existingConditions.length > 0 ? (
@@ -243,7 +280,7 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                         )}
                     </div>
                 </div>
-                <div className="space-y-2 border-l border-soft-blue pl-6">
+                <div className="space-y-2 border-t md:border-t-0 md:border-l border-soft-blue pt-4 md:pt-0 md:pl-6 min-w-0">
                     <div>
                         <span className="text-xs font-bold text-grey block uppercase tracking-wide">Current Medications</span>
                         <p className="text-xs text-grey font-semibold">{patientData.currentMedications || "None reported"}</p>
@@ -306,19 +343,19 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                     </div>
 
                     {/* Order Generator */}
-                    <div className="bg-white border border-soft-blue rounded-2xl p-6 shadow-sm space-y-4">
+                    <div className="bg-white border border-soft-blue rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
                         <h3 className="text-sm font-black text-navy uppercase">Requirement Order Generator</h3>
 
                         {/* Pharmacy Section */}
-                        <div className="p-4 bg-light-grey rounded-xl space-y-3 border border-soft-blue/30">
+                        <div className="p-3 sm:p-4 bg-light-grey rounded-xl space-y-3 border border-soft-blue/30">
                             <span className="text-xs font-bold text-navy block uppercase"><PillIcon /> Stage Pharmacy Prescription</span>
-                            <div className="grid grid-cols-2 gap-2">
-                                <input type="text" placeholder="Medicine Name" className="p-2 bg-white rounded border text-xs font-semibold text-navy" value={currentMed.name} onChange={(e) => setCurrentMed({ ...currentMed, name: e.target.value })} />
-                                <input type="text" placeholder="Dosage (500mg)" className="p-2 bg-white rounded border text-xs font-semibold text-navy" value={currentMed.dose} onChange={(e) => setCurrentMed({ ...currentMed, dose: e.target.value })} />
-                                <input type="text" placeholder="Frequency (1-0-1)" className="p-2 bg-white rounded border text-xs font-semibold text-navy" value={currentMed.freq} onChange={(e) => setCurrentMed({ ...currentMed, freq: e.target.value })} />
-                                <input type="text" placeholder="Duration (5 days)" className="p-2 bg-white rounded border text-xs font-semibold text-navy" value={currentMed.dur} onChange={(e) => setCurrentMed({ ...currentMed, dur: e.target.value })} />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <input type="text" placeholder="Medicine Name" className="p-2 bg-white rounded border text-xs font-semibold text-navy outline-none focus:ring-1 focus:ring-cyan" value={currentMed.name} onChange={(e) => setCurrentMed({ ...currentMed, name: e.target.value })} />
+                                <input type="text" placeholder="Dosage (500mg)" className="p-2 bg-white rounded border text-xs font-semibold text-navy outline-none focus:ring-1 focus:ring-cyan" value={currentMed.dose} onChange={(e) => setCurrentMed({ ...currentMed, dose: e.target.value })} />
+                                <input type="text" placeholder="Frequency (1-0-1)" className="p-2 bg-white rounded border text-xs font-semibold text-navy outline-none focus:ring-1 focus:ring-cyan" value={currentMed.freq} onChange={(e) => setCurrentMed({ ...currentMed, freq: e.target.value })} />
+                                <input type="text" placeholder="Duration (5 days)" className="p-2 bg-white rounded border text-xs font-semibold text-navy outline-none focus:ring-1 focus:ring-cyan" value={currentMed.dur} onChange={(e) => setCurrentMed({ ...currentMed, dur: e.target.value })} />
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 flex-wrap">
                                 <button onClick={addOrUpdateMedicine} className="bg-navy text-white text-xs font-bold px-3 py-1.5 rounded-lg">
                                     {editingMedIdx !== null ? "Update Medicine" : "+ Add Medicine Line"}
                                 </button>
@@ -335,8 +372,8 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                                     <p className="text-[10px] font-bold text-grey uppercase tracking-wider">Staged Medicines ({medicines.length})</p>
                                     {medicines.map((m, idx) => (
                                         <div key={idx} className={`flex items-center justify-between bg-white p-2 rounded-lg border text-xs font-semibold text-navy ${editingMedIdx === idx ? "border-cyan ring-1 ring-cyan/30" : "border-soft-blue/40"}`}>
-                                            <span><span className="font-black">{m.name}</span> &mdash; {m.dose} ({m.freq}) for {m.dur}</span>
-                                            <div className="flex gap-1.5 ml-2 shrink-0">
+                                            <span className="min-w-0 break-words mr-2"><span className="font-black">{m.name}</span> &mdash; {m.dose} ({m.freq}) for {m.dur}</span>
+                                            <div className="flex gap-1.5 shrink-0">
                                                 <button onClick={() => startEditMedicine(idx)} className="p-1 rounded hover:bg-soft-blue/40 text-navy transition-colors" title="Edit"><EditIcon /></button>
                                                 <button onClick={() => deleteMedicine(idx)} className="p-1 rounded hover:bg-red-50 text-status-red transition-colors" title="Delete"><TrashIcon /></button>
                                             </div>
@@ -347,15 +384,15 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                         </div>
 
                         {/* Lab Section */}
-                        <div className="p-4 bg-light-grey rounded-xl space-y-3 border border-soft-blue/30">
+                        <div className="p-3 sm:p-4 bg-light-grey rounded-xl space-y-3 border border-soft-blue/30">
                             <span className="text-xs font-bold text-navy block uppercase"><FlaskIcon /> Stage Lab Diagnostics Request</span>
-                            <div className="flex gap-2">
-                                <input type="text" placeholder="e.g., Complete Blood Count (CBC) or X-Ray Chest" className="w-full p-2 bg-white rounded border text-xs font-semibold text-navy" value={currentLab} onChange={(e) => setCurrentLab(e.target.value)} />
-                                <button onClick={addOrUpdateLab} className="bg-navy text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap">
+                            <div className="flex flex-col sm:flex-row gap-2">
+                                <input type="text" placeholder="e.g., Complete Blood Count (CBC) or X-Ray Chest" className="w-full p-2 bg-white rounded border text-xs font-semibold text-navy outline-none focus:ring-1 focus:ring-cyan" value={currentLab} onChange={(e) => setCurrentLab(e.target.value)} />
+                                <button onClick={addOrUpdateLab} className="bg-navy text-white text-xs font-bold px-4 py-2 rounded-lg whitespace-nowrap self-stretch sm:self-auto">
                                     {editingLabIdx !== null ? "Update" : "+ Add Lab Test"}
                                 </button>
                                 {editingLabIdx !== null && (
-                                    <button onClick={() => { setEditingLabIdx(null); setCurrentLab(""); }} className="bg-grey/20 text-navy text-xs font-bold px-3 py-2 rounded-lg whitespace-nowrap">
+                                    <button onClick={() => { setEditingLabIdx(null); setCurrentLab(""); }} className="bg-grey/20 text-navy text-xs font-bold px-3 py-2 rounded-lg whitespace-nowrap self-stretch sm:self-auto">
                                         Cancel
                                     </button>
                                 )}
@@ -367,8 +404,8 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                                     <p className="text-[10px] font-bold text-grey uppercase tracking-wider">Staged Lab Tests ({labs.length})</p>
                                     {labs.map((l, idx) => (
                                         <div key={idx} className={`flex items-center justify-between bg-white p-2 rounded-lg border text-xs font-semibold text-navy ${editingLabIdx === idx ? "border-cyan ring-1 ring-cyan/30" : "border-soft-blue/40"}`}>
-                                            <span>{l}</span>
-                                            <div className="flex gap-1.5 ml-2 shrink-0">
+                                            <span className="min-w-0 break-words mr-2">{l}</span>
+                                            <div className="flex gap-1.5 shrink-0">
                                                 <button onClick={() => startEditLab(idx)} className="p-1 rounded hover:bg-soft-blue/40 text-navy transition-colors" title="Edit"><EditIcon /></button>
                                                 <button onClick={() => deleteLab(idx)} className="p-1 rounded hover:bg-red-50 text-status-red transition-colors" title="Delete"><TrashIcon /></button>
                                             </div>
@@ -379,7 +416,7 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                         </div>
 
                         {/* Dispatch */}
-                        <button onClick={dispatchOrders} className="w-full bg-status-green hover:bg-status-green/90 text-white font-black text-sm p-3 rounded-xl transition-all flex items-center justify-center">
+                        <button onClick={dispatchOrders} className="w-full bg-status-green hover:bg-status-green/90 text-white font-black text-xs sm:text-sm p-3 rounded-xl transition-all flex items-center justify-center text-center">
                             {dispatched ? <><CheckIcon /> Packets Dispatched Successfully!</> : <><SendIcon /> Dispatch Requirements to Pharmacy &amp; Lab Panels</>}
                         </button>
                     </div>

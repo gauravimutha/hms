@@ -160,28 +160,28 @@ function StatCard({ stat, index }: { stat: StatConfig; index: number }) {
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ duration: 0.55, delay: index * 0.055, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
-            className={`group relative bg-white rounded-2xl border ${stat.border} p-5 shadow-sm hover:shadow-lg hover:shadow-navy/5 transition-shadow duration-300 overflow-hidden`}
+            className={`group relative bg-white rounded-2xl border ${stat.border} p-4 sm:p-5 shadow-sm hover:shadow-lg hover:shadow-navy/5 transition-shadow duration-300 overflow-hidden`}
         >
             <div className={`absolute -top-8 -right-8 w-28 h-28 ${stat.bg} rounded-full blur-2xl opacity-50 group-hover:opacity-90 transition-opacity duration-500`} />
-            <div className="relative z-10">
-                <div className={`w-8 h-8 rounded-xl ${stat.bg} border ${stat.border} flex items-center justify-center mb-4`}>
+            <div className="relative z-10 min-w-0">
+                <div className={`w-8 h-8 rounded-xl ${stat.bg} border ${stat.border} flex items-center justify-center mb-3 sm:mb-4`}>
                     <svg className={`${stat.color} fill-none stroke-current stroke-[2]`} viewBox="0 0 24 24" style={{ width: 15, height: 15 }} strokeLinecap="round" strokeLinejoin="round">
                         <path d={stat.iconPath} />
                     </svg>
                 </div>
-                <p className="text-[10px] font-bold text-grey uppercase tracking-[0.12em] mb-1 leading-tight">{stat.label}</p>
-                <p className={`text-[28px] font-black tracking-tight leading-none mb-1 ${stat.color}`}>
+                <p className="text-[10px] font-bold text-grey uppercase tracking-[0.12em] mb-1 leading-tight truncate">{stat.label}</p>
+                <p className={`text-xl sm:text-2xl lg:text-[28px] font-black tracking-tight leading-none mb-1 truncate ${stat.color}`}>
                     <Counter to={stat.val} prefix={stat.prefix ?? ""} suffix={stat.suffix ?? ""} />
                 </p>
-                <p className="text-[11px] text-grey/70 font-medium">{stat.sub}</p>
-                <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-soft-blue">
-                    <svg className={`w-3 h-3 ${stat.trendUp ? "text-status-green" : "text-status-orange"}`} fill="currentColor" viewBox="0 0 20 20">
+                <p className="text-[11px] text-grey/70 font-medium truncate">{stat.sub}</p>
+                <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-soft-blue flex-wrap">
+                    <svg className={`w-3 h-3 shrink-0 ${stat.trendUp ? "text-status-green" : "text-status-orange"}`} fill="currentColor" viewBox="0 0 20 20">
                         {stat.trendUp
                             ? <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                             : <path fillRule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         }
                     </svg>
-                    <span className="text-[11px] font-semibold text-grey">{stat.trend}</span>
+                    <span className="text-[11px] font-semibold text-grey truncate">{stat.trend}</span>
                 </div>
             </div>
         </motion.div>
@@ -249,7 +249,7 @@ function PatientChart() {
         <FadeUp delay={0.08}>
             <div className="bg-white rounded-2xl border border-soft-blue shadow-sm overflow-hidden">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-4 px-6 pt-5 pb-4 border-b border-soft-blue flex-wrap">
+                <div className="flex items-start justify-between gap-4 px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-4 border-b border-soft-blue flex-wrap">
                     <div>
                         <h3 className="font-black text-navy text-[15px] tracking-tight">Total Patient Volume</h3>
                         <p className="text-[11px] text-grey mt-0.5">
@@ -260,10 +260,10 @@ function PatientChart() {
                         </p>
                     </div>
                     {/* Pills */}
-                    <div className="flex gap-1 bg-light-grey border border-soft-blue rounded-xl p-1">
+                    <div className="flex flex-wrap gap-1 bg-light-grey border border-soft-blue rounded-xl p-1">
                         {GRANS.map(g => (
                             <button key={g} onClick={() => changeGran(g)}
-                                className={`px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider transition-all duration-200 ${gran === g ? "bg-navy text-white shadow-sm" : "text-grey hover:text-navy"}`}>
+                                className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-[11px] font-black uppercase tracking-wider transition-all duration-200 ${gran === g ? "bg-navy text-white shadow-sm" : "text-grey hover:text-navy"}`}>
                                 {GRAN_LABEL[g]}
                             </button>
                         ))}
@@ -271,7 +271,7 @@ function PatientChart() {
                 </div>
 
                 {/* SVG area */}
-                <div ref={containerRef} className="relative px-4 pt-4 pb-2 cursor-crosshair select-none">
+                <div ref={containerRef} className="relative px-2 sm:px-4 pt-4 pb-2 cursor-crosshair select-none overflow-hidden">
                     <AnimatePresence mode="wait">
                         <motion.div key={animKey}
                             initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
@@ -338,9 +338,9 @@ function PatientChart() {
                         { label: "Average", val: avg, color: "text-navy" },
                         { label: "Total", val: total, color: "text-status-green" },
                     ].map(({ label, val, color }) => (
-                        <div key={label} className="py-3 text-center">
-                            <p className="text-[10px] font-bold text-grey uppercase tracking-widest">{label}</p>
-                            <p className={`font-black text-xl tracking-tight ${color}`}>{val.toLocaleString("en-IN")}</p>
+                        <div key={label} className="py-2.5 sm:py-3 px-1 text-center min-w-0">
+                            <p className="text-[9px] sm:text-[10px] font-bold text-grey uppercase tracking-wider sm:tracking-widest truncate">{label}</p>
+                            <p className={`font-black text-sm sm:text-xl tracking-tight truncate ${color}`}>{val.toLocaleString("en-IN")}</p>
                         </div>
                     ))}
                 </div>
@@ -466,25 +466,25 @@ export default function ReportsPage() {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="flex items-start justify-between gap-4 flex-wrap">
                 <div>
-                    <h1 className="text-3xl font-black text-navy tracking-tight">System Reports</h1>
-                    <p className="text-grey font-medium mt-1">Real-time operational overview · BizLume HMS</p>
+                    <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">System Reports</h1>
+                    <p className="text-grey font-medium mt-1 text-xs sm:text-sm">Real-time operational overview · BizLume HMS</p>
                 </div>
                 <motion.div initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: 0.2 }}
-                    className="flex items-center gap-2 bg-white border border-soft-blue rounded-xl px-4 py-2.5 shadow-sm">
+                    className="flex items-center gap-2 bg-white border border-soft-blue rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm shrink-0">
                     <span className="w-2 h-2 rounded-full bg-status-green animate-pulse" />
-                    <span className="text-[12px] font-bold text-navy">Live</span>
-                    <span className="text-[11px] text-grey ml-1">{lastSync}</span>
+                    <span className="text-xs sm:text-[12px] font-bold text-navy">Live</span>
+                    <span className="text-[10px] sm:text-[11px] text-grey ml-1">{lastSync}</span>
                 </motion.div>
             </motion.header>
 
             {/* ── STATS — row 1 ── */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {STATS.slice(0, 4).map((s, i) => <StatCard key={s.label} stat={s} index={i} />)}
             </div>
 
             {/* ── STATS — row 2 ── */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {STATS.slice(4).map((s, i) => <StatCard key={s.label} stat={s} index={i + 4} />)}
             </div>
 

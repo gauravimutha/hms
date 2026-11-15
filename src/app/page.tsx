@@ -4,6 +4,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import MarketingNavbar from "@/components/MarketingNavbar";
+import { isDemoEnabled } from "@/lib/demo/demoConfig";
 
 /* ─── FADE UP WRAPPER ─── */
 function FadeUp({
@@ -56,7 +58,7 @@ function ReviewCard({
             </svg>
           ))}
         </div>
-        <p className="text-grey font-light leading-relaxed text-[15px] flex-1">"{text}"</p>
+        <p className="text-grey font-light leading-relaxed text-[15px] flex-1">&ldquo;{text}&rdquo;</p>
         <div className="flex items-center gap-3 pt-4 border-t border-soft-blue">
           <div className="w-9 h-9 rounded-full bg-soft-blue flex items-center justify-center text-navy font-bold text-xs shrink-0">
             {initials}
@@ -163,76 +165,7 @@ export default function LandingPage() {
       />
 
       {/* ── FLOATING GLASSMORPHIC NAV ── */}
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pointer-events-none">
-        <nav className="pointer-events-auto max-w-6xl mx-auto px-5 sm:px-7 py-3 rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_0_rgba(15,42,68,0.08)] flex justify-between items-center transition-all duration-300">
-          <Link href="/" className="flex items-center gap-3 no-underline group">
-            <Image
-              src="/logo-icon.png"
-              alt="BizLume Logo"
-              width={42}
-              height={42}
-              className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              priority
-            />
-            <div className="flex flex-col justify-center">
-              <span className="text-base sm:text-lg font-black tracking-tight text-navy leading-none">
-                BizLume
-              </span>
-              <span className="text-[9px] sm:text-[10px] font-semibold text-cyan tracking-wider uppercase leading-tight mt-0.5">
-                Hospital System
-              </span>
-            </div>
-          </Link>
-
-          <div className="hidden lg:flex items-center gap-7">
-            <Link
-              href="/features/clinical-emr"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-            >
-              Features
-            </Link>
-            <Link
-              href="/solutions/multi-specialty-hospitals"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-            >
-              Solutions
-            </Link>
-            <Link
-              href="/faq"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-            >
-              FAQ
-            </Link>
-            <Link
-              href="/about"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
-            >
-              Contact
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className="text-[13px] font-bold text-grey hover:text-navy transition-colors hidden sm:block no-underline"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/login"
-              className="bg-navy text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[12px] sm:text-[13px] font-bold hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-sm hover:shadow-cyan/20"
-            >
-              Staff Portal →
-            </Link>
-          </div>
-        </nav>
-      </div>
+      <MarketingNavbar />
 
       {/* ── HERO ── */}
       <section
@@ -299,15 +232,38 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-10 flex flex-wrap gap-3"
             >
-              <Link
-                href="/login"
-                className="bg-navy text-white px-8 py-4 rounded-xl font-black text-[15px] shadow-xl shadow-navy/20 hover:bg-cyan hover:text-navy hover:-translate-y-0.5 transition-all duration-200 no-underline"
-              >
-                Launch System
-              </Link>
-              <button className="bg-white text-navy border border-soft-blue px-8 py-4 rounded-xl font-bold text-[15px] hover:border-cyan/40 hover:shadow-md transition-all duration-200">
-                Book a Demo
-              </button>
+              {isDemoEnabled() ? (
+                <>
+                  <Link
+                    href="/demo"
+                    className="bg-cyan text-navy px-8 py-4 rounded-xl font-black text-[15px] shadow-xl shadow-cyan/25 hover:bg-navy hover:text-white hover:-translate-y-0.5 transition-all duration-200 no-underline flex items-center gap-2"
+                  >
+                    <span>Experience Live Demo</span>
+                    <span className="text-[11px] bg-navy text-cyan px-2 py-0.5 rounded-full font-bold">Interactive</span>
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="bg-white text-navy border border-soft-blue px-7 py-4 rounded-xl font-bold text-[15px] hover:border-cyan/40 hover:shadow-md transition-all duration-200 no-underline"
+                  >
+                    Staff Portal
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="bg-navy text-white px-8 py-4 rounded-xl font-black text-[15px] shadow-xl shadow-navy/20 hover:bg-cyan hover:text-navy hover:-translate-y-0.5 transition-all duration-200 no-underline"
+                  >
+                    Launch System
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="bg-white text-navy border border-soft-blue px-8 py-4 rounded-xl font-bold text-[15px] hover:border-cyan/40 hover:shadow-md transition-all duration-200 no-underline"
+                  >
+                    Book a Demo
+                  </Link>
+                </>
+              )}
             </motion.div>
 
             {/* Stats row */}
@@ -484,13 +440,13 @@ export default function LandingPage() {
             </div>
 
             {/* Stat — Response Time */}
-            <div className="col-span-6 lg:col-span-3">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-3">
               <BentoCard delay={0.1}>
                 <p className="text-[11px] font-bold text-grey uppercase tracking-widest mb-3">
                   Response Time
                 </p>
-                <div className="font-black text-[52px] leading-none tracking-tight text-navy mb-1">
-                  &lt;500<span className="text-cyan text-2xl">ms</span>
+                <div className="font-black text-3xl sm:text-4xl lg:text-[48px] leading-none tracking-tight text-navy mb-1">
+                  &lt;500<span className="text-cyan text-xl sm:text-2xl">ms</span>
                 </div>
                 <p className="text-grey text-[13px] font-light mt-3">
                   P95 API latency for local CRUD and dashboard retrieval.
@@ -502,7 +458,7 @@ export default function LandingPage() {
             </div>
 
             {/* AI Modules */}
-            <div className="col-span-6 lg:col-span-4">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-4">
               <BentoCard delay={0.15}>
                 <div className="w-10 h-10 rounded-xl bg-soft-blue flex items-center justify-center mb-5 shrink-0">
                   <svg className="w-5 h-5 stroke-cyan fill-none stroke-2" viewBox="0 0 24 24">
@@ -543,12 +499,12 @@ export default function LandingPage() {
             </div>
 
             {/* 3-Click stat */}
-            <div className="col-span-6 lg:col-span-3">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-3">
               <BentoCard delay={0.25}>
                 <p className="text-[11px] font-bold text-grey uppercase tracking-widest mb-3">
                   Data Accessibility
                 </p>
-                <div className="font-black text-[52px] leading-none tracking-tight text-cyan mb-1">
+                <div className="font-black text-4xl sm:text-5xl lg:text-[52px] leading-none tracking-tight text-cyan mb-1">
                   3
                 </div>
                 <p className="text-[13px] font-bold text-navy">Clicks to any record</p>
@@ -559,7 +515,7 @@ export default function LandingPage() {
             </div>
 
             {/* RBAC */}
-            <div className="col-span-6 lg:col-span-5">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-5">
               <BentoCard delay={0.3}>
                 <div className="w-10 h-10 rounded-xl bg-navy flex items-center justify-center mb-5 shrink-0">
                   <svg className="w-5 h-5 stroke-cyan fill-none stroke-2" viewBox="0 0 24 24">
@@ -572,7 +528,7 @@ export default function LandingPage() {
                 <p className="text-grey font-light text-[15px] leading-relaxed">
                   Six distinct roles with scoped permissions. Encrypted data at rest and in transit across LAN and cloud sync.
                 </p>
-                <div className="mt-5 grid grid-cols-3 gap-2">
+                <div className="mt-5 grid grid-cols-2 min-[400px]:grid-cols-3 gap-2">
                   {["Admin", "Doctor", "Nurse", "Reception", "Pharmacist", "Lab Tech"].map((r) => (
                     <span key={r} className="text-center text-[11px] font-semibold text-grey bg-light-grey border border-soft-blue rounded-lg py-1.5">
                       {r}

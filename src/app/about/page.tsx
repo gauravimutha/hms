@@ -32,9 +32,9 @@ export default function AboutPage() {
 
       <MarketingNavbar />
 
-      <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto w-full">
+      <main className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-semibold text-grey">
+        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-grey">
           <Link href="/" className="hover:text-navy transition-colors no-underline">
             Home
           </Link>
@@ -42,21 +42,21 @@ export default function AboutPage() {
           <span className="text-navy font-bold">About Us</span>
         </nav>
 
-        <div className="mb-14">
+        <div className="mb-12 sm:mb-14">
           <span className="inline-block px-3.5 py-1 rounded-full bg-cyan/10 border border-cyan/20 text-cyan text-[11px] font-bold tracking-widest uppercase mb-4">
             Our Purpose & Vision
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-navy tracking-tight leading-tight mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-navy tracking-tight leading-tight mb-4 sm:mb-6">
             Modernizing Healthcare Through Clinician-First Software
           </h1>
-          <p className="text-lg text-grey font-light leading-relaxed">
+          <p className="text-base sm:text-lg text-grey font-light leading-relaxed">
             BizLume HMS was conceived to resolve one of the most pressing challenges in Indian healthcare: administrative friction. Traditional hospital enterprise systems are notoriously slow, bloated, and distracting during clinical encounters.
           </p>
         </div>
 
         {/* Core Principles */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-white border border-soft-blue rounded-3xl p-7 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-12 sm:mb-16">
+          <div className="bg-white border border-soft-blue rounded-3xl p-5 sm:p-7 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center font-black mb-4">
               01
             </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="bg-white border border-soft-blue rounded-3xl p-7 shadow-sm">
+          <div className="bg-white border border-soft-blue rounded-3xl p-5 sm:p-7 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center font-black mb-4">
               02
             </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="bg-white border border-soft-blue rounded-3xl p-7 shadow-sm">
+          <div className="bg-white border border-soft-blue rounded-3xl p-5 sm:p-7 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-cyan/10 text-cyan flex items-center justify-center font-black mb-4">
               03
             </div>
@@ -88,12 +88,12 @@ export default function AboutPage() {
         </div>
 
         {/* E-E-A-T Trust Section */}
-        <div className="bg-white border border-soft-blue rounded-3xl p-8 sm:p-12 mb-16 shadow-sm">
-          <h2 className="text-2xl font-black text-navy mb-4">Data Governance & Technical Integrity</h2>
-          <p className="text-sm text-grey font-light leading-relaxed mb-6">
+        <div className="bg-white border border-soft-blue rounded-3xl p-6 sm:p-12 mb-12 sm:mb-16 shadow-sm">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-4">Data Governance & Technical Integrity</h2>
+          <p className="text-xs sm:text-sm text-grey font-light leading-relaxed mb-6">
             BizLume operates on modern PostgreSQL data foundations with automated schema verification, cryptographically validated JWT session layers, and fine-grained Role-Based Access Controls (RBAC) separating administrative, clinical, triage, and diagnostic workflows.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
             <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-light-grey border border-soft-blue text-navy">
               Encrypted Session Tokens
             </span>
@@ -110,14 +110,14 @@ export default function AboutPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-navy text-white rounded-3xl p-8 sm:p-12 text-center">
-          <h2 className="text-2xl font-black mb-3">Partner with BizLume Technology & Solutions</h2>
-          <p className="text-white/70 text-sm max-w-md mx-auto mb-6">
+        <div className="bg-navy text-white rounded-3xl p-6 sm:p-12 text-center">
+          <h2 className="text-xl sm:text-2xl font-black mb-3">Partner with BizLume Technology & Solutions</h2>
+          <p className="text-white/70 text-xs sm:text-sm max-w-md mx-auto mb-6">
             Contact us for institutional inquiries, custom deployments, or to schedule a live demonstration.
           </p>
           <a
             href="mailto:contact@bizlume.in"
-            className="inline-block bg-cyan text-navy font-bold px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg text-sm"
+            className="inline-block w-full sm:w-auto bg-cyan text-navy font-bold px-6 sm:px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg text-sm break-all"
           >
             Email contact@bizlume.in
           </a>

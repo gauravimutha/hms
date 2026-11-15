@@ -58,9 +58,9 @@ export default async function SolutionDetailPage({ params }: Props) {
 
       <MarketingNavbar />
 
-      <main className="pt-32 pb-24 px-6 max-w-5xl mx-auto w-full">
+      <main className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-5xl mx-auto w-full min-w-0">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-semibold text-grey">
+        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-grey">
           <Link href="/" className="hover:text-navy transition-colors no-underline">
             Home
           </Link>
@@ -69,26 +69,26 @@ export default async function SolutionDetailPage({ params }: Props) {
         </nav>
 
         {/* Hero */}
-        <div className="mb-14">
+        <div className="mb-12 sm:mb-14">
           <span className="inline-block px-3.5 py-1 rounded-full bg-cyan/10 border border-cyan/20 text-cyan text-[11px] font-bold tracking-widest uppercase mb-4">
             {solution.badge}
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-navy tracking-tight leading-tight mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-navy tracking-tight leading-tight mb-4 sm:mb-6">
             {solution.title}
           </h1>
-          <p className="text-lg text-grey font-light leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-lg text-grey font-light leading-relaxed max-w-3xl">
             {solution.heroText}
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
             <a
               href="mailto:contact@bizlume.in?subject=Solution%20Inquiry%20for%20BizLume%20HMS"
-              className="bg-navy text-white px-7 py-3.5 rounded-xl font-bold text-sm hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-md"
+              className="w-full sm:w-auto text-center bg-navy text-white px-7 py-3.5 rounded-xl font-bold text-sm hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-md"
             >
               Request Custom Demo →
             </a>
             <Link
               href="/login"
-              className="bg-white border border-soft-blue text-navy px-6 py-3.5 rounded-xl font-bold text-sm hover:border-cyan transition-all duration-200 no-underline"
+              className="w-full sm:w-auto text-center bg-white border border-soft-blue text-navy px-6 py-3.5 rounded-xl font-bold text-sm hover:border-cyan transition-all duration-200 no-underline"
             >
               Explore Staff Portals
             </Link>
@@ -96,22 +96,22 @@ export default async function SolutionDetailPage({ params }: Props) {
         </div>
 
         {/* Pain Points Solved */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-navy mb-8">Clinical Bottlenecks We Eliminate</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6 sm:mb-8">Clinical Bottlenecks We Eliminate</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
             {solution.painPoints.map((item, idx) => (
-              <div key={idx} className="bg-white border border-soft-blue rounded-3xl p-7 shadow-sm">
+              <div key={idx} className="bg-white border border-soft-blue rounded-3xl p-5 sm:p-7 shadow-sm">
                 <div className="mb-4">
                   <span className="text-xs font-bold text-status-red uppercase tracking-wider block mb-1">
                     The Challenge
                   </span>
-                  <p className="text-sm font-semibold text-dark leading-relaxed">{item.problem}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-dark leading-relaxed">{item.problem}</p>
                 </div>
                 <div className="pt-4 border-t border-soft-blue">
                   <span className="text-xs font-bold text-cyan uppercase tracking-wider block mb-1">
                     The BizLume Solution
                   </span>
-                  <p className="text-sm text-grey font-light leading-relaxed">{item.solution}</p>
+                  <p className="text-xs sm:text-sm text-grey font-light leading-relaxed">{item.solution}</p>
                 </div>
               </div>
             ))}
@@ -119,42 +119,42 @@ export default async function SolutionDetailPage({ params }: Props) {
         </div>
 
         {/* Modules Included */}
-        <div className="mb-16 bg-white border border-soft-blue rounded-3xl p-8 sm:p-12 shadow-sm">
-          <h2 className="text-2xl font-black text-navy mb-6">Integrated Modules in this Edition</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="mb-12 sm:mb-16 bg-white border border-soft-blue rounded-3xl p-6 sm:p-12 shadow-sm">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">Integrated Modules in this Edition</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {solution.featuresIncluded.map((feat, idx) => (
               <div key={idx} className="flex items-center gap-3 p-3 bg-light-grey rounded-xl border border-soft-blue">
                 <span className="w-6 h-6 rounded-lg bg-cyan text-white flex items-center justify-center text-xs font-bold shrink-0">
                   ✓
                 </span>
-                <span className="text-sm font-bold text-navy">{feat}</span>
+                <span className="text-xs sm:text-sm font-bold text-navy">{feat}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* FAQs */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-black text-navy mb-6">Frequently Asked Questions</h2>
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {solution.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-6">
+              <div key={idx} className="bg-white border border-soft-blue rounded-2xl p-5 sm:p-6">
                 <h3 className="text-base font-bold text-navy mb-2">{faq.question}</h3>
-                <p className="text-sm text-grey leading-relaxed font-light">{faq.answer}</p>
+                <p className="text-xs sm:text-sm text-grey leading-relaxed font-light">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="bg-navy text-white rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
-          <h3 className="text-2xl sm:text-3xl font-black mb-3">Speak with a Healthcare Solutions Specialist</h3>
-          <p className="text-white/70 text-sm max-w-lg mx-auto mb-6">
+        <div className="bg-navy text-white rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden">
+          <h3 className="text-xl sm:text-3xl font-black mb-3">Speak with a Healthcare Solutions Specialist</h3>
+          <p className="text-white/70 text-xs sm:text-sm max-w-lg mx-auto mb-6">
             Get an architecture review and custom rollout schedule for your clinic or hospital network.
           </p>
           <a
             href="mailto:contact@bizlume.in"
-            className="inline-block bg-cyan text-navy font-bold px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg shadow-cyan/20 text-sm"
+            className="inline-block w-full sm:w-auto bg-cyan text-navy font-bold px-6 sm:px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity no-underline shadow-lg shadow-cyan/20 text-sm break-all"
           >
             Email contact@bizlume.in
           </a>

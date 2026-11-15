@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import DemoAppWrapper from "@/components/demo/DemoAppWrapper";
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +57,9 @@ export default function RootLayout({
         <link rel="image_src" href="https://bizlume.in/og-image.jpg" />
       </head>
       <body className="antialiased bg-white selection:bg-cyan/30">
-        {children}
+        <DemoAppWrapper>
+          {children}
+        </DemoAppWrapper>
       </body>
     </html>
   );

@@ -107,62 +107,64 @@ export default function BillingPage() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 w-full min-w-0">
             <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
-            <h2 className="text-2xl font-black text-navy tracking-tight">Billing & Invoices</h2>
+            <h2 className="text-xl sm:text-2xl font-black text-navy tracking-tight">Billing & Invoices</h2>
             
-            <div className="bg-white rounded-3xl border border-soft-blue overflow-hidden shadow-sm">
-                <table className="w-full text-left">
-                    <thead className="bg-light-grey border-b border-soft-blue">
-                        <tr>
-                            <th className="p-4 text-xs font-black text-grey uppercase tracking-widest">Invoice ID (Patient)</th>
-                            <th className="p-4 text-xs font-black text-grey uppercase tracking-widest">Patient</th>
-                            <th className="p-4 text-xs font-black text-grey uppercase tracking-widest">Items</th>
-                            <th className="p-4 text-xs font-black text-grey uppercase tracking-widest">Amount</th>
-                            <th className="p-4 text-xs font-black text-grey uppercase tracking-widest">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-soft-blue">
-                        {loading ? (
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-soft-blue overflow-hidden shadow-sm">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left min-w-[620px]">
+                        <thead className="bg-light-grey border-b border-soft-blue">
                             <tr>
-                                <td colSpan={5} className="p-8 text-center text-sm font-semibold text-grey animate-pulse">
-                                    Loading active patients...
-                                </td>
+                                <th className="p-3 sm:p-4 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">Invoice ID (Patient)</th>
+                                <th className="p-3 sm:p-4 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">Patient</th>
+                                <th className="p-3 sm:p-4 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">Items</th>
+                                <th className="p-3 sm:p-4 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">Amount</th>
+                                <th className="p-3 sm:p-4 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">Action</th>
                             </tr>
-                        ) : pendingBills.length === 0 ? (
-                            <tr>
-                                <td colSpan={5} className="p-8 text-center text-sm font-semibold text-grey">
-                                    No pending bills found. All active patients are cleared!
-                                </td>
-                            </tr>
-                        ) : (
-                            pendingBills.map((bill) => (
-                                <tr key={bill.id} className="hover:bg-soft-blue/10 transition-colors">
-                                    <td className="p-4 font-bold text-navy font-mono text-xs">{bill.patientCode}</td>
-                                    <td className="p-4 text-sm font-medium">{bill.name}</td>
-                                    <td className="p-4 text-xs text-grey">Patient Registration Fee</td>
-                                    <td className="p-4 font-black text-navy">₹{bill.registrationFee}</td>
-                                    <td className="p-4">
-                                        <button 
-                                            onClick={() => handlePayment(bill.id, bill.registrationFee)}
-                                            disabled={processingId === bill.id}
-                                            className="bg-cyan text-white px-4 py-1.5 rounded-lg text-xs font-bold shadow-lg shadow-cyan/20 disabled:opacity-50 flex items-center gap-2 transition-all active:scale-95"
-                                        >
-                                            {processingId === bill.id ? (
-                                                <>
-                                                    <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                                    Processing...
-                                                </>
-                                            ) : (
-                                                "Collect Payment"
-                                            )}
-                                        </button>
+                        </thead>
+                        <tbody className="divide-y divide-soft-blue">
+                            {loading ? (
+                                <tr>
+                                    <td colSpan={5} className="p-8 text-center text-sm font-semibold text-grey animate-pulse">
+                                        Loading active patients...
                                     </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ) : pendingBills.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5} className="p-8 text-center text-sm font-semibold text-grey">
+                                        No pending bills found. All active patients are cleared!
+                                    </td>
+                                </tr>
+                            ) : (
+                                pendingBills.map((bill) => (
+                                    <tr key={bill.id} className="hover:bg-soft-blue/10 transition-colors">
+                                        <td className="p-3 sm:p-4 font-bold text-navy font-mono text-xs">{bill.patientCode}</td>
+                                        <td className="p-3 sm:p-4 text-sm font-medium">{bill.name}</td>
+                                        <td className="p-3 sm:p-4 text-xs text-grey">Patient Registration Fee</td>
+                                        <td className="p-3 sm:p-4 font-black text-navy">₹{bill.registrationFee}</td>
+                                        <td className="p-3 sm:p-4">
+                                            <button 
+                                                onClick={() => handlePayment(bill.id, bill.registrationFee)}
+                                                disabled={processingId === bill.id}
+                                                className="bg-cyan text-white px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold shadow-lg shadow-cyan/20 disabled:opacity-50 flex items-center gap-2 transition-all active:scale-95 whitespace-nowrap"
+                                            >
+                                                {processingId === bill.id ? (
+                                                    <>
+                                                        <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                                        Processing...
+                                                    </>
+                                                ) : (
+                                                    "Collect Payment"
+                                                )}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

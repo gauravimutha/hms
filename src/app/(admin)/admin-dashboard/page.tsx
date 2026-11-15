@@ -71,6 +71,18 @@ export default function AdminDashboard() {
 
     useEffect(() => { fetchPendingUsers(); }, []);
 
+    useEffect(() => {
+        const onAutofill = (e: any) => {
+            if (e.detail?.type === "ADMIN_APPROVAL") {
+                if (users.length > 0) {
+                    approveUser(users[0].id);
+                }
+            }
+        };
+        window.addEventListener("bizlume:demo:autofill", onAutofill);
+        return () => window.removeEventListener("bizlume:demo:autofill", onAutofill);
+    }, [users]);
+
     const approveUser = async (id: string) => {
         setApprovingId(id);
         try {
@@ -104,9 +116,9 @@ export default function AdminDashboard() {
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 className="flex items-start justify-between gap-4 flex-wrap"
             >
-                <div>
-                    <h1 className="text-3xl font-black text-navy tracking-tight">Staff Approvals</h1>
-                    <p className="text-grey font-medium mt-1">
+                <div className="min-w-0">
+                    <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">Staff Approvals</h1>
+                    <p className="text-grey font-medium mt-1 text-xs sm:text-sm">
                         Verify credentials for incoming medical staff requests.
                     </p>
                 </div>
@@ -120,13 +132,13 @@ export default function AdminDashboard() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.85 }}
                             transition={{ duration: 0.25 }}
-                            className="flex items-center gap-2 bg-white border border-soft-blue rounded-xl px-4 py-2.5 shadow-sm"
+                            className="flex items-center gap-2 bg-white border border-soft-blue rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm shrink-0"
                         >
                             <span
                                 className={`w-2 h-2 rounded-full ${users.length > 0 ? "bg-status-orange animate-pulse" : "bg-status-green"
                                     }`}
                             />
-                            <span className="text-[13px] font-bold text-navy">
+                            <span className="text-xs sm:text-[13px] font-bold text-navy whitespace-nowrap">
                                 {users.length} Pending
                             </span>
                         </motion.div>
@@ -139,16 +151,16 @@ export default function AdminDashboard() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-white rounded-3xl border border-soft-blue overflow-hidden shadow-sm"
+                className="bg-white rounded-2xl sm:rounded-3xl border border-soft-blue overflow-hidden shadow-sm"
             >
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left min-w-[620px]">
                         <thead className="bg-light-grey border-b border-soft-blue">
                             <tr>
                                 {["Professional Details", "Employee Identity", "Requested On", "Target Role", "Action"].map((col) => (
                                     <th
                                         key={col}
-                                        className={`p-5 text-[10px] font-black text-grey uppercase tracking-widest whitespace-nowrap ${col === "Action" ? "text-right" : ""}`}
+                                        className={`p-3 sm:p-5 text-[10px] font-black text-grey uppercase tracking-widest whitespace-nowrap ${col === "Action" ? "text-right" : ""}`}
                                     >
                                         {col}
                                     </th>
@@ -195,44 +207,44 @@ export default function AdminDashboard() {
                                             className="group hover:bg-soft-blue/30 transition-colors duration-150"
                                         >
                                             {/* Professional Details */}
-                                            <td className="p-5">
+                                            <td className="p-3 sm:p-5">
                                                 <div className="flex items-center gap-3">
                                                     {/* Avatar */}
                                                     <div className="w-9 h-9 rounded-full bg-soft-blue flex items-center justify-center text-navy font-black text-xs shrink-0">
                                                         {getInitials(user.name)}
                                                     </div>
-                                                    <div>
-                                                        <p className="font-bold text-navy text-[14px]">{user.name}</p>
-                                                        <p className="text-xs text-grey mt-0.5">{user.email}</p>
+                                                    <div className="min-w-0">
+                                                        <p className="font-bold text-navy text-[14px] truncate">{user.name}</p>
+                                                        <p className="text-xs text-grey mt-0.5 break-all max-w-[200px] sm:max-w-none">{user.email}</p>
                                                     </div>
                                                 </div>
                                             </td>
 
                                             {/* Employee ID */}
-                                            <td className="p-5">
-                                                <span className="font-mono font-bold text-navy text-sm bg-light-grey border border-soft-blue rounded-lg px-2.5 py-1">
+                                            <td className="p-3 sm:p-5">
+                                                <span className="font-mono font-bold text-navy text-xs sm:text-sm bg-light-grey border border-soft-blue rounded-lg px-2 sm:px-2.5 py-1 whitespace-nowrap">
                                                     {user.employeeId}
                                                 </span>
                                             </td>
 
                                             {/* Date */}
-                                            <td className="p-5 text-sm text-grey font-medium whitespace-nowrap">
+                                            <td className="p-3 sm:p-5 text-xs sm:text-sm text-grey font-medium whitespace-nowrap">
                                                 {formatDate(user.createdAt)}
                                             </td>
 
                                             {/* Role */}
-                                            <td className="p-5">
-                                                <span className={`inline-block border rounded-lg px-3 py-1 text-[11px] font-black uppercase tracking-wider ${getRoleStyle(user.role)}`}>
+                                            <td className="p-3 sm:p-5">
+                                                <span className={`inline-block border rounded-lg px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-black uppercase tracking-wider whitespace-nowrap ${getRoleStyle(user.role)}`}>
                                                     {user.role}
                                                 </span>
                                             </td>
 
                                             {/* Action */}
-                                            <td className="p-5 text-right">
+                                            <td className="p-3 sm:p-5 text-right">
                                                 <button
                                                     onClick={() => approveUser(user.id)}
                                                     disabled={approvingId === user.id}
-                                                    className="relative inline-flex items-center gap-2 bg-navy text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-cyan hover:text-navy active:scale-95 transition-all duration-200 shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                                                    className="relative inline-flex items-center gap-1.5 sm:gap-2 bg-navy text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-bold hover:bg-cyan hover:text-navy active:scale-95 transition-all duration-200 shadow-sm disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
                                                 >
                                                     {approvingId === user.id ? (
                                                         <>

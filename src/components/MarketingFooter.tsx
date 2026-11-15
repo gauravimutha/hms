@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export default function MarketingFooter() {
   return (
-    <footer className="bg-navy text-white pt-16 pb-10 px-6">
+    <footer className="bg-navy text-white pt-12 sm:pt-16 pb-8 sm:pb-10 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 sm:gap-12 pb-10 sm:pb-12 border-b border-white/10">
           <div className="md:col-span-2">
             <a
               href="https://bizlume.in"
@@ -142,11 +142,11 @@ export default function MarketingFooter() {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
           <p className="text-[11px] text-white/25 uppercase tracking-widest font-medium">
             © 2026 BizLume Systems. All rights reserved.
           </p>
-          <div className="flex gap-6 text-[11px] font-bold text-white/40">
+          <div className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 text-[11px] font-bold text-white/40">
             <Link href="/about" className="hover:text-white transition-colors uppercase tracking-wider no-underline">
               About
             </Link>

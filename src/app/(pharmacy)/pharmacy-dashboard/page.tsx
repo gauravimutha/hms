@@ -28,25 +28,25 @@ export default function PharmacyDashboard() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 w-full min-w-0">
       <header>
-        <h1 className="text-3xl font-black text-navy tracking-tight">Pharmacy Dashboard</h1>
-        <p className="text-grey font-medium">Real-time overview of prescriptions and inventory.</p>
+        <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">Pharmacy Dashboard</h1>
+        <p className="text-xs sm:text-sm text-grey font-medium mt-1">Real-time overview of prescriptions and inventory.</p>
       </header>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 min-[420px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
         {cards.map((c, i) => (
           <motion.div
             key={c.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className={`${c.bg} rounded-2xl p-5 border border-soft-blue`}
+            className={`${c.bg} rounded-2xl p-4 sm:p-5 border border-soft-blue min-w-0`}
           >
             <div className="text-2xl mb-2">{c.icon}</div>
-            <p className={`text-2xl font-black ${c.color}`}>{c.value}</p>
-            <p className="text-xs font-bold text-grey mt-1">{c.label}</p>
+            <p className={`text-xl sm:text-2xl font-black truncate ${c.color}`}>{c.value}</p>
+            <p className="text-xs font-bold text-grey mt-1 truncate">{c.label}</p>
           </motion.div>
         ))}
       </div>

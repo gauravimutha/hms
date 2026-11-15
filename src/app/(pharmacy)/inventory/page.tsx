@@ -78,27 +78,27 @@ export default function InventoryPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full min-w-0">
       <header className="flex justify-between items-start flex-wrap gap-4">
-        <div>
-          <h1 className="text-3xl font-black text-navy">Medicine Inventory</h1>
-          <p className="text-grey font-medium">Track stock, expiry dates, and restocking needs.</p>
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-black text-navy tracking-tight">Medicine Inventory</h1>
+          <p className="text-xs sm:text-sm text-grey font-medium mt-0.5">Track stock, expiry dates, and restocking needs.</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="bg-cyan text-white px-6 py-3 rounded-xl font-black text-sm hover:bg-navy transition-all shadow-lg"
+          className="bg-cyan text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-black text-xs sm:text-sm hover:bg-navy transition-all shadow-lg shadow-cyan/20 whitespace-nowrap"
         >
           + Add Medicine
         </button>
       </header>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center">
         {(["ALL", "LOW", "EXPIRING"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+            className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
               filter === f ? "bg-cyan text-white shadow-md" : "bg-white border border-soft-blue text-grey hover:border-cyan"
             }`}
           >
@@ -110,66 +110,68 @@ export default function InventoryPage() {
           placeholder="Search medicine..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="ml-auto p-3 bg-white border border-soft-blue rounded-xl outline-none focus:ring-2 focus:ring-cyan text-sm w-64"
+          className="w-full sm:w-64 sm:ml-auto p-2.5 sm:p-3 bg-white border border-soft-blue rounded-xl outline-none focus:ring-2 focus:ring-cyan text-sm"
         />
       </div>
 
       {/* Table */}
       <div className="bg-white rounded-2xl border border-soft-blue overflow-hidden shadow-sm">
-        <table className="w-full text-sm">
-          <thead className="bg-light-grey border-b border-soft-blue">
-            <tr>
-              {["Medicine", "Category", "Stock", "Unit Price", "Expiry", "Batch", "Actions"].map((h) => (
-                <th key={h} className="text-left px-5 py-3 text-xs font-black text-grey uppercase tracking-widest">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((m, i) => {
-              const isExpired  = m.expiryDate && new Date(m.expiryDate) < today;
-              const isExpiring = m.expiryDate && new Date(m.expiryDate) <= in30Days && !isExpired;
-              return (
-                <motion.tr
-                  key={m.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.03 }}
-                  className={`border-b border-soft-blue hover:bg-light-grey/50 transition-colors ${isExpired ? "bg-red-50/30" : ""}`}
-                >
-                  <td className="px-5 py-3">
-                    <p className="font-bold text-navy">{m.name}</p>
-                    {m.genericName && <p className="text-xs text-grey">{m.genericName}</p>}
-                  </td>
-                  <td className="px-5 py-3">
-                    <span className="bg-soft-blue text-navy px-2 py-0.5 rounded-lg text-xs font-bold">{m.category}</span>
-                  </td>
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="font-black text-navy">{m.currentStock}</span>
-                      <StockBadge stock={m.currentStock} min={m.minStockLevel} />
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 font-bold text-navy">₹{m.pricePerUnit}</td>
-                  <td className="px-5 py-3">
-                    {m.expiryDate ? (
-                      <span className={`text-xs font-bold ${isExpired ? "text-status-red" : isExpiring ? "text-status-orange" : "text-grey"}`}>
-                        {isExpired ? "⛔ EXPIRED " : isExpiring ? "⚠️ " : ""}
-                        {new Date(m.expiryDate).toLocaleDateString("en-IN")}
-                      </span>
-                    ) : "—"}
-                  </td>
-                  <td className="px-5 py-3 text-grey text-xs">{m.batchNumber ?? "—"}</td>
-                  <td className="px-5 py-3">
-                    <div className="flex gap-1">
-                      <button onClick={() => handleUpdateStock(m.id, 10)} className="bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-green-200 transition-all">+10</button>
-                      <button onClick={() => handleUpdateStock(m.id, -1)} className="bg-red-100 text-red-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-red-200 transition-all">-1</button>
-                    </div>
-                  </td>
-                </motion.tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[700px]">
+            <thead className="bg-light-grey border-b border-soft-blue">
+              <tr>
+                {["Medicine", "Category", "Stock", "Unit Price", "Expiry", "Batch", "Actions"].map((h) => (
+                  <th key={h} className="text-left px-4 sm:px-5 py-3 text-xs font-black text-grey uppercase tracking-widest whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((m, i) => {
+                const isExpired  = m.expiryDate && new Date(m.expiryDate) < today;
+                const isExpiring = m.expiryDate && new Date(m.expiryDate) <= in30Days && !isExpired;
+                return (
+                  <motion.tr
+                    key={m.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.03 }}
+                    className={`border-b border-soft-blue hover:bg-light-grey/50 transition-colors ${isExpired ? "bg-red-50/30" : ""}`}
+                  >
+                    <td className="px-4 sm:px-5 py-3">
+                      <p className="font-bold text-navy">{m.name}</p>
+                      {m.genericName && <p className="text-xs text-grey">{m.genericName}</p>}
+                    </td>
+                    <td className="px-4 sm:px-5 py-3">
+                      <span className="bg-soft-blue text-navy px-2 py-0.5 rounded-lg text-xs font-bold">{m.category}</span>
+                    </td>
+                    <td className="px-4 sm:px-5 py-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-navy">{m.currentStock}</span>
+                        <StockBadge stock={m.currentStock} min={m.minStockLevel} />
+                      </div>
+                    </td>
+                    <td className="px-4 sm:px-5 py-3 font-bold text-navy whitespace-nowrap">₹{m.pricePerUnit}</td>
+                    <td className="px-4 sm:px-5 py-3 whitespace-nowrap">
+                      {m.expiryDate ? (
+                        <span className={`text-xs font-bold ${isExpired ? "text-status-red" : isExpiring ? "text-status-orange" : "text-grey"}`}>
+                          {isExpired ? "⛔ EXPIRED " : isExpiring ? "⚠️ " : ""}
+                          {new Date(m.expiryDate).toLocaleDateString("en-IN")}
+                        </span>
+                      ) : "—"}
+                    </td>
+                    <td className="px-4 sm:px-5 py-3 text-grey text-xs whitespace-nowrap">{m.batchNumber ?? "—"}</td>
+                    <td className="px-4 sm:px-5 py-3 whitespace-nowrap">
+                      <div className="flex gap-1">
+                        <button onClick={() => handleUpdateStock(m.id, 10)} className="bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-green-200 transition-all">+10</button>
+                        <button onClick={() => handleUpdateStock(m.id, -1)} className="bg-red-100 text-red-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-red-200 transition-all">-1</button>
+                      </div>
+                    </td>
+                  </motion.tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         {filtered.length === 0 && (
           <div className="text-center py-12 text-grey">
             <p className="text-3xl mb-2">💊</p>
@@ -180,14 +182,14 @@ export default function InventoryPage() {
 
       {/* Add Medicine Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 space-y-5"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-5 sm:p-8 space-y-4 sm:space-y-5 max-h-[90vh] overflow-y-auto"
           >
-            <h2 className="text-xl font-black text-navy">Add New Medicine</h2>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <h2 className="text-lg sm:text-xl font-black text-navy">Add New Medicine</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
               {([
                 ["name",          "Medicine Name *",   "text"],
                 ["genericName",   "Generic Name",      "text"],
@@ -208,7 +210,7 @@ export default function InventoryPage() {
                   />
                 </div>
               ))}
-              <div className="flex flex-col gap-1 col-span-2">
+              <div className="flex flex-col gap-1 col-span-1 sm:col-span-2">
                 <label className="text-xs font-bold text-grey">Unit</label>
                 <select
                   value={newMed.unit}
@@ -222,8 +224,8 @@ export default function InventoryPage() {
               </div>
             </div>
             <div className="flex justify-end gap-3 pt-2">
-              <button onClick={() => setShowAddModal(false)} className="px-6 py-2.5 rounded-xl border border-soft-blue text-navy font-bold hover:bg-light-grey transition-all text-sm">Cancel</button>
-              <button onClick={handleAddMedicine} className="px-6 py-2.5 rounded-xl bg-cyan text-white font-bold hover:bg-navy transition-all text-sm">Add Medicine</button>
+              <button onClick={() => setShowAddModal(false)} className="px-5 py-2.5 rounded-xl border border-soft-blue text-navy font-bold hover:bg-light-grey transition-all text-xs sm:text-sm">Cancel</button>
+              <button onClick={handleAddMedicine} className="px-5 py-2.5 rounded-xl bg-cyan text-white font-bold hover:bg-navy transition-all text-xs sm:text-sm">Add Medicine</button>
             </div>
           </motion.div>
         </div>
