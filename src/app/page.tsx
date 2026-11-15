@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -100,21 +100,43 @@ export default function LandingPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-light-grey text-dark font-sans overflow-x-hidden">
 
-      {/* ── NAV ── */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-soft-blue">
-        <div className="max-w-7xl mx-auto px-6 h-[90px] flex justify-between items-center">
-          <Link href="/" className="flex items-center no-underline">
+      {/* ── FLOATING GLASSMORPHIC NAV ── */}
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pointer-events-none">
+        <nav className="pointer-events-auto max-w-6xl mx-auto px-5 sm:px-7 py-3 rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_0_rgba(15,42,68,0.08)] flex justify-between items-center transition-all duration-300">
+          <Link href="/" className="flex items-center gap-3 no-underline group">
             <Image
-              src="/logo-header.png"
-              alt="Bizlume Technology & Solutions"
-              width={650}
-              height={200}
-              className="h-16 w-auto object-contain"
+              src="/logo-icon.png"
+              alt="BizLume Logo"
+              width={42}
+              height={42}
+              className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
+            <div className="flex flex-col justify-center">
+              <span className="text-base sm:text-lg font-black tracking-tight text-navy leading-none">
+                BizLume
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-semibold text-cyan tracking-wider uppercase leading-tight mt-0.5">
+                Hospital System
+              </span>
+            </div>
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
@@ -122,7 +144,7 @@ export default function LandingPage() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-[13px] font-medium text-grey hover:text-navy transition-colors no-underline"
+                className="text-[13px] font-semibold text-grey hover:text-navy transition-colors no-underline"
               >
                 {item}
               </a>
@@ -132,19 +154,19 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="text-[13px] font-semibold text-grey hover:text-navy transition-colors hidden sm:block no-underline"
+              className="text-[13px] font-bold text-grey hover:text-navy transition-colors hidden sm:block no-underline"
             >
               Sign in
             </Link>
             <Link
               href="/login"
-              className="bg-navy text-white px-5 py-2.5 rounded-xl text-[13px] font-bold hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-sm"
+              className="bg-navy text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[12px] sm:text-[13px] font-bold hover:bg-cyan hover:text-navy transition-all duration-200 no-underline shadow-sm hover:shadow-cyan/20"
             >
               Staff Portal →
             </Link>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
 
       {/* ── HERO ── */}
       <section
@@ -668,15 +690,30 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
             <div className="md:col-span-2">
-              <div className="mb-5">
-                <Image
-                  src="/logo-header.png"
-                  alt="Bizlume Technology & Solutions"
-                  width={650}
-                  height={200}
-                  className="h-16 w-auto object-contain brightness-0 invert"
-                />
-              </div>
+              <a
+                href="https://bizlume.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3.5 mb-5 group no-underline"
+              >
+                <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 p-2 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan/20 group-hover:border-cyan/40 group-hover:scale-105">
+                  <Image
+                    src="/logo-icon.png"
+                    alt="BizLume Logo"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain brightness-0 invert"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan transition-colors">
+                    BizLume
+                  </span>
+                  <span className="text-[11px] font-medium text-white/50 tracking-wide flex items-center gap-1 group-hover:text-white/80 transition-colors">
+                    bizlume.in ↗
+                  </span>
+                </div>
+              </a>
               <p className="text-white/40 text-[13px] font-light leading-relaxed max-w-xs">
                 Modernizing healthcare through intelligent, stable, clinician-first software.
               </p>
@@ -712,6 +749,31 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* ── NAVIGATE TO TOP BUTTON ── */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            onClick={scrollToTop}
+            aria-label="Navigate to top"
+            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-2xl bg-navy/90 backdrop-blur-xl border border-white/20 text-white shadow-xl shadow-navy/20 hover:bg-cyan hover:text-navy hover:border-cyan transition-all duration-300 flex items-center justify-center group cursor-pointer"
+          >
+            <svg
+              className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
