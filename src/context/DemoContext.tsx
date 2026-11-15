@@ -235,10 +235,31 @@ export function DemoProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+const defaultDemoContext: DemoContextType = {
+  isDemoMode: false,
+  setIsDemoMode: () => {},
+  currentPhaseNumber: 1,
+  currentPhase: WORKFLOW_PHASES[0],
+  currentStepIndex: 0,
+  currentStep: null,
+  isTourActive: false,
+  showHandoff: false,
+  isSwitchingRole: false,
+  demoPatient: DEMO_SAMPLE_PATIENT,
+  activeAccount: null,
+  startTour: () => {},
+  stopTour: () => {},
+  nextStep: () => {},
+  prevStep: () => {},
+  skipToPhase: async () => {},
+  switchRole: async () => {},
+  proceedToNextPhase: async () => {},
+  triggerAutofill: () => {},
+  resetDemo: async () => ({ success: false, message: "Demo mode disabled" }),
+  dismissHandoff: () => {},
+};
+
 export function useDemo() {
   const context = useContext(DemoContext);
-  if (!context) {
-    throw new Error("useDemo must be used within a DemoProvider");
-  }
-  return context;
+  return context || defaultDemoContext;
 }

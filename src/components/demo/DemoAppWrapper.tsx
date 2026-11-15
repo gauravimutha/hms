@@ -8,14 +8,10 @@ import { isDemoEnabled } from "@/lib/demo/demoConfig";
 export default function DemoAppWrapper({ children }: { children: React.ReactNode }) {
   const enabled = isDemoEnabled();
 
-  if (!enabled) {
-    return <>{children}</>;
-  }
-
   return (
     <DemoProvider>
       {children}
-      <DemoBar />
+      {enabled && <DemoBar />}
     </DemoProvider>
   );
 }
