@@ -26,7 +26,7 @@ export function constructMetadata({
     "Hospital Billing Software",
     "Healthcare Management System India"
   ],
-  ogImage = "/og-image.png"
+  ogImage = "/og-image.jpg"
 }: SEOProps): Metadata {
   const url = `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
@@ -48,8 +48,10 @@ export function constructMetadata({
       images: [
         {
           url: ogImage,
+          secureUrl: `${SITE_URL}${ogImage}`,
           width: 1200,
           height: 675,
+          type: "image/jpeg",
           alt: `${title} - ${BRAND_NAME}`,
         },
       ],
