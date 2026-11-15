@@ -118,7 +118,7 @@ export default function LabResultEntryPage({ params }: { params: Promise<RoutePa
                         <p><strong>Demographics:</strong> {patientInfo.gender} • {patientInfo.age} Yrs</p>
                         <p><strong>Assigned Procedure:</strong> {patientInfo.testName}</p>
                         <p><strong>Ordering Clinician:</strong> {patientInfo.doctor}</p>
-                        <p className="text-xs text-grey font-bold mt-2 break-all">Order Reference Token ID: {orderId}</p>
+                        <p className="text-xs text-grey font-bold mt-2 break-all">Order Reference Token ID: <span className="font-mono text-navy font-bold">{orderId}</span></p>
                     </div>
                 </div>
 
@@ -128,7 +128,7 @@ export default function LabResultEntryPage({ params }: { params: Promise<RoutePa
                         <label className="text-xs font-bold text-grey block mb-1">Diagnostic Report Findings / Quantitative Values</label>
                         <textarea
                             rows={5}
-                            className="w-full bg-light-grey text-navy font-semibold text-sm p-3 rounded-xl border border-soft-blue/60 focus:outline-none focus:ring-2 focus:ring-cyan"
+                            className="w-full bg-light-grey text-navy font-mono text-xs sm:text-sm p-3 rounded-xl border border-soft-blue/60 focus:outline-none focus:ring-2 focus:ring-cyan leading-relaxed"
                             placeholder="Type raw observation measurements or clinical findings (e.g. Mild infiltration tracked in lower left lung boundaries)..."
                             value={resultNotes}
                             onChange={(e) => setResultNotes(e.target.value)}

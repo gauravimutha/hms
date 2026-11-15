@@ -208,12 +208,12 @@ export default function PrescriptionReportsPage() {
                   </td>
                   <td className="py-3.5 px-4">
                     <div className="font-bold text-navy">{row.patientName}</div>
-                    <div className="text-[11px] text-grey">{row.patientCode}</div>
+                    <div className="text-[11px] text-grey font-mono font-bold">{row.patientCode}</div>
                   </td>
                   <td className="py-3.5 px-4 text-dark font-medium">{row.doctor}</td>
-                  <td className="py-3.5 px-4 text-grey text-xs">{row.dispensedAt}</td>
+                  <td className="py-3.5 px-4 text-grey text-xs font-mono">{row.dispensedAt}</td>
                   <td className="py-3.5 px-4">
-                    <span className="px-2.5 py-0.5 rounded-md bg-light-grey border border-soft-blue text-navy font-bold text-xs">
+                    <span className="px-2.5 py-0.5 rounded-md bg-light-grey border border-soft-blue text-navy font-bold text-xs font-mono">
                       {row.itemCount} meds
                     </span>
                   </td>

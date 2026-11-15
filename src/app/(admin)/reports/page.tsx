@@ -170,7 +170,7 @@ function StatCard({ stat, index }: { stat: StatConfig; index: number }) {
                     </svg>
                 </div>
                 <p className="text-[10px] font-bold text-grey uppercase tracking-[0.12em] mb-1 leading-tight truncate">{stat.label}</p>
-                <p className={`text-xl sm:text-2xl lg:text-[28px] font-black tracking-tight leading-none mb-1 truncate ${stat.color}`}>
+                <p className={`text-xl sm:text-2xl lg:text-[28px] font-black tracking-tight leading-none mb-1 truncate ${stat.color} font-mono tabular-nums`}>
                     <Counter to={stat.val} prefix={stat.prefix ?? ""} suffix={stat.suffix ?? ""} />
                 </p>
                 <p className="text-[11px] text-grey/70 font-medium truncate">{stat.sub}</p>
@@ -340,7 +340,7 @@ function PatientChart() {
                     ].map(({ label, val, color }) => (
                         <div key={label} className="py-2.5 sm:py-3 px-1 text-center min-w-0">
                             <p className="text-[9px] sm:text-[10px] font-bold text-grey uppercase tracking-wider sm:tracking-widest truncate">{label}</p>
-                            <p className={`font-black text-sm sm:text-xl tracking-tight truncate ${color}`}>{val.toLocaleString("en-IN")}</p>
+                            <p className={`font-black text-sm sm:text-xl tracking-tight truncate ${color} font-mono tabular-nums`}>{val.toLocaleString("en-IN")}</p>
                         </div>
                     ))}
                 </div>

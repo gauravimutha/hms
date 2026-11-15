@@ -411,7 +411,7 @@ export default function NewPatientPage() {
                 {lookupResults.map((p: any) => (
                   <button key={p.id} type="button" onClick={() => selectReturningPatient(p)} className="w-full flex items-center justify-between p-3 bg-light-grey border border-soft-blue rounded-xl hover:border-cyan transition-all text-left">
                     <div>
-                      <p className="text-sm font-bold text-navy">{p.name} <span className="text-xs font-mono text-grey ml-1">{p.patientCode}</span></p>
+                      <p className="text-sm font-bold text-navy">{p.name} <span className="text-xs font-mono font-bold text-navy ml-1">{p.patientCode}</span></p>
                       <p className="text-xs text-grey">{p.phone} · {p.gender} · {p.age} yrs{p.visits?.length ? ` · ${p.visits.length} past visit(s)` : ""}</p>
                     </div>
                     <span className="text-xs font-bold text-cyan">Select →</span>
@@ -426,7 +426,7 @@ export default function NewPatientPage() {
         {!submittedPatient && isReturning && selectedPatient && (
           <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-3 bg-cyan/5 border-b border-cyan/20 flex items-center justify-between gap-3 flex-wrap">
             <div>
-              <p className="text-sm font-bold text-navy">Returning: {selectedPatient.name} <span className="font-mono text-xs text-grey">{selectedPatient.patientCode}</span></p>
+              <p className="text-sm font-bold text-navy">Returning: {selectedPatient.name} <span className="font-mono text-xs font-bold text-navy">{selectedPatient.patientCode}</span></p>
               <p className="text-xs text-grey">A new visit will be created for this existing patient.</p>
             </div>
             <button type="button" onClick={clearReturning} className="text-xs font-bold text-status-red hover:underline shrink-0">Cancel</button>
@@ -729,7 +729,7 @@ export default function NewPatientPage() {
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-navy">{(submittedPatient as any).isReturning ? "New Visit Created!" : "Registration Successful!"}</h2>
             <p className="text-grey max-w-md mx-auto text-sm sm:text-base">
-              Patient <span className="font-semibold text-dark">{submittedPatient.name}</span> — Patient ID: <span className="font-semibold text-dark">{(submittedPatient as any).patientCode || submittedPatient.id}</span>
+              Patient <span className="font-semibold text-dark">{submittedPatient.name}</span> — Patient ID: <span className="font-mono font-bold text-navy">{(submittedPatient as any).patientCode || submittedPatient.id}</span>
             </p>
 
             <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">

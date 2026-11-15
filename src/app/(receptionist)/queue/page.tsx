@@ -255,7 +255,7 @@ export default function QueueManagerPage() {
                       >
                         {/* Position */}
                         <td className="px-4 py-3">
-                          <span className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-sm ${
+                          <span className={`w-8 h-8 rounded-full flex items-center justify-center font-black font-mono text-sm ${
                             p.position === 1 ? "bg-cyan text-white shadow-md shadow-cyan/30" :
                             p.position === 2 ? "bg-navy/10 text-navy" : "bg-light-grey text-grey"
                           }`}>
@@ -266,7 +266,7 @@ export default function QueueManagerPage() {
                         {/* Patient info */}
                         <td className="px-4 py-3">
                           <p className="font-bold text-navy text-sm">{p.name}</p>
-                          <p className="text-xs text-grey font-mono">{p.patientCode} · {p.gender} · {p.age}y</p>
+                          <p className="text-xs text-grey"><span className="font-mono font-bold text-navy">{p.patientCode}</span> · {p.gender} · {p.age}y</p>
                         </td>
 
                         {/* Severity */}
@@ -278,7 +278,7 @@ export default function QueueManagerPage() {
                         {/* Wait time */}
                         <td className="px-4 py-3">
                           <span className="text-sm font-mono text-grey">{p.waitingLabel}</span>
-                          <p className="text-[10px] text-grey/50">score: {p.queueScore}</p>
+                          <p className="text-[10px] text-grey/50">score: <span className="font-mono">{p.queueScore}</span></p>
                         </td>
 
                         {/* Status */}

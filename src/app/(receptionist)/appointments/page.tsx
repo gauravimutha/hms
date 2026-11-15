@@ -119,7 +119,7 @@ function DoctorQueueCard({ doctor }: { doctor: DoctorProfile }) {
                                 p.position === 2 ? "bg-navy/10 text-navy" :
                                 p.status === "DEFERRED" ? "bg-grey/20 text-grey" :
                                 "bg-light-grey text-grey"
-                            }`}>
+                            } font-mono`}>
                                 {p.position ?? "—"}
                             </div>
 
@@ -128,19 +128,19 @@ function DoctorQueueCard({ doctor }: { doctor: DoctorProfile }) {
                                 <div className="flex items-center gap-2 flex-wrap">
                                     <SeverityDot level={p.critical} />
                                     <p className="text-sm font-bold text-navy truncate">{p.name}</p>
-                                    <span className="text-[10px] font-mono text-grey">{p.patientCode}</span>
+                                    <span className="text-xs font-mono font-bold text-navy">{p.patientCode}</span>
                                 </div>
                                 <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                                     <span className="text-[10px] text-grey">{p.gender} · {p.age}y</span>
                                     <span className="text-[10px] text-grey">·</span>
                                     {p.visitType === "appointment" && p.scheduledTime ? (
-                                        <span className="text-[10px] font-bold text-cyan">
+                                        <span className="text-[10px] font-bold text-cyan font-mono">
                                             📅 {new Date(p.scheduledTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                                         </span>
                                     ) : (
                                         <span className="text-[10px] text-grey">🚶 Walk-in</span>
                                     )}
-                                    <span className="text-[10px] text-grey">· {p.waitingLabel}</span>
+                                    <span className="text-[10px] text-grey font-mono">· {p.waitingLabel}</span>
                                 </div>
                             </div>
 

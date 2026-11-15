@@ -286,7 +286,7 @@ export default function VitalsPage() {
                     <td className="py-4 px-4 sm:px-6">
                       <div className="font-bold text-navy">{item.name}</div>
                       <div className="text-[11px] text-grey flex items-center gap-2 mt-0.5">
-                        <span>{item.patientCode}</span>
+                        <span className="font-mono font-bold text-navy">{item.patientCode}</span>
                         <span>&bull;</span>
                         <span>
                           {item.age} yrs, {item.gender}
@@ -308,7 +308,7 @@ export default function VitalsPage() {
                     </td>
                     <td className="py-4 px-4">
                       <span className="font-semibold text-dark">{item.doctor}</span>
-                      <div className="text-[11px] text-grey">{item.timeWaiting}</div>
+                      <div className="text-[11px] text-grey font-mono">{item.timeWaiting}</div>
                     </td>
                     <td className="py-4 px-4">
                       {item.status === "RECORDED" ? (

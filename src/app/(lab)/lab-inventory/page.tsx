@@ -50,10 +50,10 @@ export default function LabInventory() {
                         <tbody className="divide-y divide-soft-blue/40 text-sm font-medium text-navy">
                             {reagents.map((r) => (
                                 <tr key={r.id}>
-                                    <td className="py-4 px-2 text-grey text-xs font-bold">{r.id}</td>
+                                    <td className="py-4 px-2 text-grey text-xs font-mono font-bold">{r.id}</td>
                                     <td className="py-4 px-2 font-black">{r.name}</td>
-                                    <td className="py-4 px-2 font-bold">{r.stock} Units</td>
-                                    <td className="py-4 px-2 font-semibold text-grey">{r.expiry}</td>
+                                    <td className="py-4 px-2 font-bold font-mono">{r.stock} Units</td>
+                                    <td className="py-4 px-2 font-semibold text-grey font-mono">{r.expiry}</td>
                                     <td className="py-4 px-2 text-right">
                                         <span className={`text-xs px-2 py-0.5 rounded font-bold whitespace-nowrap ${r.status === "NORMAL" ? "bg-green-50 text-status-green" :
                                             r.status === "LOW_STOCK" ? "bg-red-50 text-status-red" :

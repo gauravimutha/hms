@@ -146,24 +146,24 @@ export default function InventoryPage() {
                     </td>
                     <td className="px-4 sm:px-5 py-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-black text-navy">{m.currentStock}</span>
+                        <span className="font-black text-navy font-mono tabular-nums">{m.currentStock}</span>
                         <StockBadge stock={m.currentStock} min={m.minStockLevel} />
                       </div>
                     </td>
-                    <td className="px-4 sm:px-5 py-3 font-bold text-navy whitespace-nowrap">₹{m.pricePerUnit}</td>
+                    <td className="px-4 sm:px-5 py-3 font-bold text-navy whitespace-nowrap font-mono tabular-nums">₹{m.pricePerUnit}</td>
                     <td className="px-4 sm:px-5 py-3 whitespace-nowrap">
                       {m.expiryDate ? (
-                        <span className={`text-xs font-bold ${isExpired ? "text-status-red" : isExpiring ? "text-status-orange" : "text-grey"}`}>
+                        <span className={`text-xs font-bold font-mono ${isExpired ? "text-status-red" : isExpiring ? "text-status-orange" : "text-grey"}`}>
                           {isExpired ? "⛔ EXPIRED " : isExpiring ? "⚠️ " : ""}
                           {new Date(m.expiryDate).toLocaleDateString("en-IN")}
                         </span>
                       ) : "—"}
                     </td>
-                    <td className="px-4 sm:px-5 py-3 text-grey text-xs whitespace-nowrap">{m.batchNumber ?? "—"}</td>
+                    <td className="px-4 sm:px-5 py-3 text-grey text-xs whitespace-nowrap font-mono font-bold">{m.batchNumber ?? "—"}</td>
                     <td className="px-4 sm:px-5 py-3 whitespace-nowrap">
                       <div className="flex gap-1">
-                        <button onClick={() => handleUpdateStock(m.id, 10)} className="bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-green-200 transition-all">+10</button>
-                        <button onClick={() => handleUpdateStock(m.id, -1)} className="bg-red-100 text-red-700 px-2 py-1 rounded-lg text-xs font-black hover:bg-red-200 transition-all">-1</button>
+                        <button onClick={() => handleUpdateStock(m.id, 10)} className="bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-black font-mono hover:bg-green-200 transition-all">+10</button>
+                        <button onClick={() => handleUpdateStock(m.id, -1)} className="bg-red-100 text-red-700 px-2 py-1 rounded-lg text-xs font-black font-mono hover:bg-red-200 transition-all">-1</button>
                       </div>
                     </td>
                   </motion.tr>

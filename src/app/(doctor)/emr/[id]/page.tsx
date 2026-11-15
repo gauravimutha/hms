@@ -327,7 +327,7 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                             </div>
                             <div>
                                 <label className="text-xs font-bold text-grey block mb-1">Consultation Fee (₹)</label>
-                                <input type="number" className="w-full md:w-1/3 bg-light-grey text-navy font-black text-lg p-3 rounded-xl border border-soft-blue/60 focus:outline-none" placeholder="e.g. 500" value={consultationFee} onChange={(e) => setConsultationFee(e.target.value ? parseInt(e.target.value) : "")} />
+                                <input type="number" className="w-full md:w-1/3 bg-light-grey text-navy font-black text-lg p-3 rounded-xl border border-soft-blue/60 focus:outline-none font-mono tabular-nums" placeholder="e.g. 500" value={consultationFee} onChange={(e) => setConsultationFee(e.target.value ? parseInt(e.target.value) : "")} />
                             </div>
                         </div>
                     </div>
@@ -372,7 +372,7 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                                     <p className="text-[10px] font-bold text-grey uppercase tracking-wider">Staged Medicines ({medicines.length})</p>
                                     {medicines.map((m, idx) => (
                                         <div key={idx} className={`flex items-center justify-between bg-white p-2 rounded-lg border text-xs font-semibold text-navy ${editingMedIdx === idx ? "border-cyan ring-1 ring-cyan/30" : "border-soft-blue/40"}`}>
-                                            <span className="min-w-0 break-words mr-2"><span className="font-black">{m.name}</span> &mdash; {m.dose} ({m.freq}) for {m.dur}</span>
+                                            <span className="min-w-0 break-words mr-2"><span className="font-black">{m.name}</span> &mdash; <span className="font-mono text-xs font-bold text-navy">{m.dose}</span> (<span className="font-mono text-xs">{m.freq}</span>) for <span className="font-mono text-xs">{m.dur}</span></span>
                                             <div className="flex gap-1.5 shrink-0">
                                                 <button onClick={() => startEditMedicine(idx)} className="p-1 rounded hover:bg-soft-blue/40 text-navy transition-colors" title="Edit"><EditIcon /></button>
                                                 <button onClick={() => deleteMedicine(idx)} className="p-1 rounded hover:bg-red-50 text-status-red transition-colors" title="Delete"><TrashIcon /></button>
@@ -447,7 +447,7 @@ export default function PatientEMRPage({ params }: { params: Promise<RouteParams
                                 <div className="space-y-1">
                                     <h4 className="text-[11px] font-black uppercase tracking-wide border-b pb-0.5">Formulated Rx Prescriptions</h4>
                                     <ul className="list-disc list-inside text-xs font-medium space-y-1 text-navy">
-                                        {medicines.map((m, idx) => (<li key={idx}><span className="font-black">{m.name}</span> &mdash; {m.dose} ({m.freq}) for {m.dur}</li>))}
+                                        {medicines.map((m, idx) => (<li key={idx}><span className="font-black">{m.name}</span> &mdash; <span className="font-mono">{m.dose}</span> (<span className="font-mono">{m.freq}</span>) for <span className="font-mono">{m.dur}</span></li>))}
                                     </ul>
                                 </div>
                             )}

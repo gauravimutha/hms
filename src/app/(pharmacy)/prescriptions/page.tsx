@@ -92,7 +92,7 @@ export default function PrescriptionsPage() {
               <div className="min-w-0">
                 <p className="font-black text-navy text-base truncate">{p.patient.name}</p>
                 <p className="text-xs text-grey font-medium break-all">
-                  ID: {p.id.slice(0, 8).toUpperCase()} · Dr. {p.doctorName ?? "Unknown"} · {new Date(p.createdAt).toLocaleDateString("en-IN")}
+                  ID: <span className="font-mono font-bold text-navy">{p.id.slice(0, 8).toUpperCase()}</span> · Dr. {p.doctorName ?? "Unknown"} · <span className="font-mono">{new Date(p.createdAt).toLocaleDateString("en-IN")}</span>
                 </p>
               </div>
               <span className={`text-[10px] font-black uppercase px-3 py-1 rounded-full shrink-0 ${STATUS_STYLES[p.status]}`}>
@@ -104,7 +104,7 @@ export default function PrescriptionsPage() {
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {p.items.map((item, j) => (
                 <div key={j} className="bg-light-grey rounded-xl px-3 py-2 text-xs font-bold text-navy break-words">
-                  💊 {item.medicine.name} — {item.dosage} × {item.quantity}
+                  💊 {item.medicine.name} — <span className="font-mono">{item.dosage}</span> × <span className="font-mono font-bold">{item.quantity}</span>
                 </div>
               ))}
             </div>

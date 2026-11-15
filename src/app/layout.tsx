@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import DemoAppWrapper from "@/components/demo/DemoAppWrapper";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -44,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${plusJakartaSans.variable} ${jetBrainsMono.variable}`}>
       <head>
         {/* Explicit OpenGraph & WhatsApp Meta Tags */}
         <meta property="og:image" content="https://bizlume.in/og-image.jpg" />
@@ -56,7 +71,7 @@ export default function RootLayout({
         {/* Fallback for platforms looking for item-prop */}
         <link rel="image_src" href="https://bizlume.in/og-image.jpg" />
       </head>
-      <body className="antialiased bg-white selection:bg-cyan/30">
+      <body className="font-sans antialiased bg-white selection:bg-cyan/30">
         <DemoAppWrapper>
           {children}
         </DemoAppWrapper>

@@ -228,9 +228,9 @@ export default function PharmacyDispensePage() {
                       <div className="text-grey text-[11px]">Exp: {item.expiry}</div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className="text-status-green font-bold">{item.availableStock}</span> units
+                      <span className="text-status-green font-bold font-mono">{item.availableStock}</span> units
                     </td>
-                    <td className="py-3.5 px-4 font-bold text-navy">
+                    <td className="py-3.5 px-4 font-bold text-navy font-mono">
                       {item.quantity}
                     </td>
                     <td className="py-3.5 px-4 text-right font-mono font-bold text-navy">

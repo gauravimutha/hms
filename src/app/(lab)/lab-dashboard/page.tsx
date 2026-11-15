@@ -94,7 +94,7 @@ export default function LabDashboard() {
                         className={`${c.bg} rounded-2xl p-4 sm:p-5 border border-soft-blue`}
                     >
                         <div className="text-2xl mb-2">{c.icon}</div>
-                        <p className={`text-lg sm:text-xl font-black ${c.color}`}>{c.value}</p>
+                        <p className={`text-lg sm:text-xl font-black ${c.color} font-mono tabular-nums`}>{c.value}</p>
                         <p className="text-xs font-bold text-grey mt-1">{c.label}</p>
                     </motion.div>
                 ))}

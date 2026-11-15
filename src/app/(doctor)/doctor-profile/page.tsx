@@ -181,7 +181,7 @@ export default function DoctorProfilePage() {
                     <div>
                         <label className="text-xs font-bold text-grey block mb-1">Consultation Fee (₹)</label>
                         <input type="number" value={consultationFee} onChange={e => setConsultationFee(e.target.value)}
-                            className="w-full bg-light-grey text-navy font-semibold text-sm p-3 rounded-xl border border-soft-blue/60 focus:outline-none"
+                            className="w-full bg-light-grey text-navy font-semibold text-sm p-3 rounded-xl border border-soft-blue/60 focus:outline-none font-mono tabular-nums"
                             placeholder="e.g., 500" />
                     </div>
                 </div>
@@ -197,13 +197,13 @@ export default function DoctorProfilePage() {
                         <div key={day} className="p-3 bg-light-grey rounded-xl border border-soft-blue/30">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-black text-navy uppercase tracking-wider">{day}</span>
-                                <span className="text-[10px] font-bold text-grey">{weeklySlots[day]?.length || 0} slot(s)</span>
+                                <span className="text-[10px] font-bold text-grey font-mono">{weeklySlots[day]?.length || 0} slot(s)</span>
                             </div>
 
                             {/* Existing slots */}
                             <div className="flex flex-wrap gap-1.5 mb-2">
                                 {(weeklySlots[day] || []).map((slot, idx) => (
-                                    <span key={idx} className="inline-flex items-center gap-1 bg-navy/10 text-navy text-xs font-bold px-2.5 py-1 rounded-lg">
+                                    <span key={idx} className="inline-flex items-center gap-1 bg-navy/10 text-navy text-xs font-bold font-mono px-2.5 py-1 rounded-lg">
                                         {slot}
                                         <button onClick={() => removeSlot(day, idx)} className="text-status-red hover:text-status-red/80 ml-0.5 font-black text-[10px]">✕</button>
                                     </span>

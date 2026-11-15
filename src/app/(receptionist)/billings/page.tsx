@@ -142,7 +142,7 @@ export default function BillingPage() {
                                         <td className="p-3 sm:p-4 font-bold text-navy font-mono text-xs">{bill.patientCode}</td>
                                         <td className="p-3 sm:p-4 text-sm font-medium">{bill.name}</td>
                                         <td className="p-3 sm:p-4 text-xs text-grey">Patient Registration Fee</td>
-                                        <td className="p-3 sm:p-4 font-black text-navy">₹{bill.registrationFee}</td>
+                                        <td className="p-3 sm:p-4 font-black text-navy font-mono tabular-nums">₹{bill.registrationFee}</td>
                                         <td className="p-3 sm:p-4">
                                             <button 
                                                 onClick={() => handlePayment(bill.id, bill.registrationFee)}

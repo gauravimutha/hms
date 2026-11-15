@@ -45,7 +45,7 @@ export default function PharmacyDashboard() {
             className={`${c.bg} rounded-2xl p-4 sm:p-5 border border-soft-blue min-w-0`}
           >
             <div className="text-2xl mb-2">{c.icon}</div>
-            <p className={`text-xl sm:text-2xl font-black truncate ${c.color}`}>{c.value}</p>
+            <p className={`text-xl sm:text-2xl font-black truncate ${c.color} font-mono tabular-nums`}>{c.value}</p>
             <p className="text-xs font-bold text-grey mt-1 truncate">{c.label}</p>
           </motion.div>
         ))}

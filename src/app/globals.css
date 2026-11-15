@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 @theme {
+  /* Typography Families */
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-jakarta: var(--font-jakarta), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
   /* Main Colors */
   --color-navy: #0f2a44;
   --color-cyan: #00b4d8;
@@ -12,7 +17,7 @@
   --color-status-orange: #f59e0b;
   --color-status-red: #ef4444;
 
-  /* Typography */
+  /* Typography Colors */
   --color-dark: #1e293b;
   --color-grey: #64748b;
 }
@@ -25,5 +30,16 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Precision Clinical & Structured Data Utilities */
+.font-clinical,
+.font-id,
+.font-metric {
+  font-family: var(--font-mono), monospace;
+  font-feature-settings: "tnum" on, "zero" on;
+  font-variant-numeric: tabular-nums;
 }
