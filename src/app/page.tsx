@@ -719,35 +719,56 @@ export default function LandingPage() {
       <section className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <FadeUp>
-            <div className="relative bg-navy rounded-3xl px-10 py-20 md:px-20 overflow-hidden text-center">
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan/10 rounded-full blur-[120px] pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan/5 rounded-full blur-[100px] pointer-events-none" />
-              <div className="relative z-10">
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-bold text-cyan uppercase tracking-[0.15em] mb-8">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-                  Ready to modernize your clinic?
+            <div className="relative bg-gradient-to-br from-navy via-[#0c2339] to-navy rounded-3xl p-10 sm:p-16 md:p-20 overflow-hidden text-center border border-white/10 shadow-[0_20px_60px_rgba(15,42,68,0.3)]">
+              {/* Decorative Glow Elements */}
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan/15 rounded-full blur-[140px] pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-cyan/10 rounded-full blur-[120px] pointer-events-none" />
+              
+              <div className="relative z-10 max-w-3xl mx-auto">
+                <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan/10 border border-cyan/30 text-[11px] sm:text-xs font-bold text-cyan uppercase tracking-[0.18em] mb-7 backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-cyan animate-pulse" />
+                  Production Ready System &middot; 2026 Edition
                 </span>
-                <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black tracking-tight text-white mb-6">
-                  Launch in under
-                  <br />4 months.
+                
+                <h2 className="text-[clamp(2.2rem,5vw,3.75rem)] font-black tracking-tight text-white mb-6 leading-[1.15]">
+                  Ready to Use.
+                  <br />
+                  <span className="bg-gradient-to-r from-white via-soft-blue to-cyan bg-clip-text text-transparent">
+                    Built for Indian Healthcare.
+                  </span>
                 </h2>
-                <p className="text-white/60 font-light text-lg max-w-md mx-auto mb-10">
-                  Full MVP — EMR, AI triage, pharmacy, lab, and billing — delivered on schedule and on budget.
+                
+                <p className="text-white/70 font-light text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                  Fast patient intake, algorithmic OPD triage queue, clinical EMR, lab order dispatch, and Razorpay billing — operational out of the box with zero complex setup.
                 </p>
-                <div className="flex flex-wrap gap-4 justify-center items-center">
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <a
-                    href="mailto:contact@bizlume.in"
-                    className="bg-cyan text-navy font-black text-[15px] px-10 py-4 rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all no-underline shadow-xl shadow-cyan/20 inline-flex items-center gap-2"
+                    href="mailto:contact@bizlume.in?subject=Demo%20Access%20Request%20-%20BizLume%20HMS&body=Hello%20BizLume%20Team%2C%0A%0AWe%20would%20like%20to%20request%20demo%20access%20and%20an%20architecture%20walkthrough%20for%20our%20healthcare%20facility.%0A%0AFacility%20Name%3A%0ALocation%20%2F%20City%3A%0ANumber%20of%20Doctors%20%2F%20Beds%3A%0APreferred%20Contact%20Number%3A%0A%0AThank%20you!"
+                    className="w-full sm:w-auto bg-gradient-to-r from-cyan to-[#0096c7] text-navy font-black text-[15px] px-9 py-4 rounded-xl hover:shadow-[0_0_30px_rgba(0,180,216,0.5)] hover:-translate-y-0.5 transition-all duration-300 no-underline shadow-xl shadow-cyan/20 inline-flex items-center justify-center gap-2.5 group"
                   >
-                    <span>contact@bizlume.in</span>
-                    <span>✉</span>
+                    <span>Request Demo Access</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </a>
+                  
                   <Link
                     href="/login"
-                    className="bg-white/10 text-white font-bold text-[15px] px-10 py-4 rounded-xl border border-white/20 hover:bg-white/15 transition-all no-underline"
+                    className="w-full sm:w-auto bg-white/10 hover:bg-white/15 text-white font-bold text-[15px] px-8 py-4 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 no-underline backdrop-blur-md inline-flex items-center justify-center gap-2"
                   >
-                    Staff Portal →
+                    <span>Staff Portal Sign In</span>
                   </Link>
+                </div>
+                
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-[12px] text-white/50">
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-cyan font-bold">✓</span> Direct onboarding support
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-cyan font-bold">✓</span> No credit card required
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-cyan font-bold">✓</span> Role-based demo accounts
+                  </span>
                 </div>
               </div>
             </div>
