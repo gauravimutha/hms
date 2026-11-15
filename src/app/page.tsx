@@ -668,16 +668,20 @@ export default function LandingPage() {
                 <p className="text-white/60 font-light text-lg max-w-md mx-auto mb-10">
                   Full MVP — EMR, AI triage, pharmacy, lab, and billing — delivered on schedule and on budget.
                 </p>
-                <div className="flex flex-wrap gap-4 justify-center">
+                <div className="flex flex-wrap gap-4 justify-center items-center">
+                  <a
+                    href="mailto:contact@bizlume.in"
+                    className="bg-cyan text-navy font-black text-[15px] px-10 py-4 rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all no-underline shadow-xl shadow-cyan/20 inline-flex items-center gap-2"
+                  >
+                    <span>contact@bizlume.in</span>
+                    <span>✉</span>
+                  </a>
                   <Link
                     href="/login"
-                    className="bg-cyan text-navy font-black text-[15px] px-10 py-4 rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all no-underline shadow-xl shadow-cyan/20"
+                    className="bg-white/10 text-white font-bold text-[15px] px-10 py-4 rounded-xl border border-white/20 hover:bg-white/15 transition-all no-underline"
                   >
-                    Launch System
+                    Staff Portal →
                   </Link>
-                  <button className="bg-white/10 text-white font-bold text-[15px] px-10 py-4 rounded-xl border border-white/20 hover:bg-white/15 transition-all">
-                    Book a Demo
-                  </button>
                 </div>
               </div>
             </div>
